@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Get voter object
     $query = $entityManager->createQuery(
-        "SELECT u FROM ElectionVoter u WHERE u.rollNo = '1' AND IDENTITY(u.election) = '$electionId' "
+        "SELECT u FROM ElectionVoter u WHERE u.rollNo = '$USER_ROLL' AND IDENTITY(u.election) = '$electionId' "
     )->setMaxResults(1);
     $voter = $query->getOneOrNullResult();
 
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Get all elections for voter
-$query = $entityManager->createQuery("SELECT u FROM ElectionVoter u WHERE u.rollNo = '1'");
+$query = $entityManager->createQuery("SELECT u FROM ElectionVoter u WHERE u.rollNo = '$USER_ROLL'");
 $voters = $query->getResult();
 
 // Check which election not voted

@@ -42,3 +42,6 @@ $loader = new \Twig\Loader\FilesystemLoader('./templates');
 $twig = new \Twig\Environment($loader, [
 //    'cache' => '/path/to/compilation_cache',
 ]);
+
+// User roll number
+$USER_ROLL = $_SERVER['OIDC_CLAIM_employeeNumber'];
