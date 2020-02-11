@@ -28,6 +28,11 @@ class Election
     /**
      * @ORM\Column(type="boolean")
      */
+    protected $suspended;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
     protected $ended;
 
     /**
@@ -163,6 +168,26 @@ class Election
     public function setRequireCode($requireCode)
     {
         $this->requireCode = $requireCode;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of suspended
+     */
+    public function getSuspended()
+    {
+        return $this->suspended;
+    }
+
+    /**
+     * Set the value of suspended
+     *
+     * @return  self
+     */
+    public function setSuspended($suspended)
+    {
+        $this->suspended = $suspended;
 
         return $this;
     }

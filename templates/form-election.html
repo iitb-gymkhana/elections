@@ -27,6 +27,12 @@
 {% endif %}
 
 {% if election.getActive() %}
+{% if not election.getSuspended() %}
+<input type="submit" class="button is-link is-outlined is-fullwidth is-warning" name="suspend" value="Suspend Election" />
+{% else %}
+<input type="submit" class="button is-link is-outlined is-fullwidth is-success" name="suspend" value="Resume Election" />
+{% endif %}
+
 <input type="submit" class="button is-link is-outlined is-fullwidth is-danger" name="end" value="End Election" />
 {% endif %}
 

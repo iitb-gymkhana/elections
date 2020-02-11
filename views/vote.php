@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($election === null) { echo "No such election"; die(); }
 
     // Election active
-    if ($election->getActive() !== true) {
+    if (!$election->getActive() || $election->getSuspended()) {
         echo "Election not active"; die;
     }
 
@@ -97,7 +97,7 @@ $voters = $query->getResult();
 $election = null;
 $voter = null;
 foreach ($voters as $v) {
-    if (!$v->getVoted() && $v->getElection()->getActive() === true) {
+    if (!$v->getVoted() && $v->getElection()->getActive() && !$v->getElection()->getSuspended()) {
         $voter = $v;
         $election = $v->getElection();
     }

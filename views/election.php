@@ -11,14 +11,24 @@ if (!$USER_SUPERADMIN && $election->getCreator() !== $USER_ROLL) dieNoElection()
 // Handle updating
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_POST['class'] === 'election') {
-        // Start election
-        if (!empty($_POST['start']) && $election->getActive() === false && $election->getEnded() === false) {
-            $election->setActive(true);
-        }
-        // End election
-        if (!empty($_POST['end']) && $election->getActive() === true && $election->getEnded() === false) {
-            $election->setActive(false);
-            $election->setEnded(true);
+        if (!$election->getEnded()) {
+            // Start election
+            if (!empty($_POST['start'])) {
+                $election->setActive(true);
+            }
+
+            // End election
+            if ($election->getActive()) {
+                if (!empty($_POST['end'])) {
+                    $election->setActive(false);
+                    $election->setEnded(true);
+                }
+
+                // Suspend/resume election
+                if (!empty($_POST['suspend'])) {
+                    $election->setSuspended(!$election->getSuspended());
+                }
+            }
         }
 
         // Update
