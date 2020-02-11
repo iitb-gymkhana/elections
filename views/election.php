@@ -9,7 +9,12 @@ if ($election === null) { echo "No such election"; die(); }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_POST['class'] === 'election') {
         $election->setName($_POST['name']);
-        $entityManager->persist($election);
+        if (!empty($_POST['delete'])) {
+            $entityManager->remove($election);
+            $link = '/elections';
+        } else {
+            $entityManager->persist($election);
+        }
     }
 
     if ($_POST['class'] === 'post') {
@@ -60,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $entityManager->flush();
     header("HTTP/1.1 303 See Other");
-    $link = $_SERVER['REQUEST_URI'];
+    if (!isset($link)) $link = $_SERVER['REQUEST_URI'];
     header("Location: $link");
     die();
 }

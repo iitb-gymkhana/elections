@@ -1,0 +1,8 @@
+img.candidate {
+    width: 100%;
+    width: 230px;
+    height: 230px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 8px auto;
+}
