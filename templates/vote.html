@@ -19,6 +19,10 @@
                         <img class="candidate"
                              src="https://gymkhana.iitb.ac.in/profiles/internal/api/avatar/?q={{ candidate.getPhoto() }}" />
                         {{ candidate.getName() }}
+                        {% if candidate.getManifesto() %}
+                        <br />
+                        <a href="{{ candidate.getManifesto() }}" target="_blank"> Manifesto </a>
+                        {% endif %}
 
                         <br />
 
