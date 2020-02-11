@@ -124,7 +124,8 @@ class ElectionVoterList
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="voters")
+ * @ORM\Table(name="voters", indexes={@ORM\Index(name="rn", columns={"rollNo"}),
+ *                                    @ORM\Index(name="rnxe", columns={"rollNo", "election_id"})})
  */
 class ElectionVoter
 {

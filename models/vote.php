@@ -4,7 +4,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="votes")
+ * @ORM\Table(name="votes", indexes={@ORM\Index(name="candidate", columns={"candidate_id"})})
  */
 class ElectionVote
 {
