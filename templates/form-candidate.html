@@ -7,9 +7,9 @@
 </div>
 
 <div class="field">
-    <label class="label">Photo URL</label>
+    <label class="label">Roll Number</label>
     <div class="control">
-        <input class="input" name="photo" type="url" placeholder="e.g. https://..." value="{{ candidate.getPhoto() }}"
+        <input class="input" name="photo" type="text" placeholder="e.g. 160010005" value="{{ candidate.getPhoto() }}"
             {% if not canEdit %} disabled {% endif %}>
     </div>
 </div>

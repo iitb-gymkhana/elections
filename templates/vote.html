@@ -16,7 +16,8 @@
                 <div class="columns is-centered">
                     {% for candidate in post.getCandidates() %}
                     <div class="column is-narrow has-text-centered">
-                        <img class="candidate" src="{{ candidate.getPhoto() }}" />
+                        <img class="candidate"
+                             src="https://gymkhana.iitb.ac.in/profiles/internal/api/avatar/?q={{ candidate.getPhoto() }}" />
                         {{ candidate.getName() }}
 
                         <br />
