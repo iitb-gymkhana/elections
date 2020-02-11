@@ -40,6 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Illegal voting key!"; die;
     }
 
+    // Check IP fence
+    if (checkIP($voter) === false) {
+        echo "IP address not recognized"; die;
+    }
+
     // Mark voted
     $voter->setVoted(true);
     $entityManager->persist($voter);
