@@ -36,6 +36,19 @@ class ElectionCandidate
     protected $manifesto;
 
     /**
+     * Number of yes votes
+     */
+    public $resultYes = 0;
+    /**
+     * Number of no votes
+     */
+    public $resultNo = 0;
+    /**
+     * Number of neutral votes
+     */
+    public $resultNeutral = 0;
+
+    /**
      * Get the value of id
      */
     public function getId()

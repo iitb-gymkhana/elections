@@ -10,3 +10,7 @@ img.candidate {
 .nota-radio {
     margin-top: -15px;
 }
+
+.table.is-centered {
+    margin: 0 auto;
+}

@@ -37,6 +37,11 @@ class ElectionPost
     protected $type;
 
     /**
+     * Number of NOTA votes
+     */
+    public $resultNOTA = 0;
+
+    /**
      * @ORM\OneToMany(targetEntity="ElectionCandidate", mappedBy="post")
      */
     protected $candidates;

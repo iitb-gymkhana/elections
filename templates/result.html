@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Result{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container" method="POST">
+        <div class="has-text-centered">
+            <h2 class="title is-4">{{ election.getName() }}</h2>
+
+            {% for post in election.getPosts() %}
+            <div class="box is-shadowless">
+                <h2 class="subtitle is-5">{{ post.getName() }}</h2>
+
+                {% if post.isYNN() %}
+                <table class="table is-centered">
+                    <thead>
+                        <th> Candidate </th>
+                        <th> Yes </th>
+                        <th> No </th>
+                        <th> Neutral </th>
+                    </thead>
+                    <tbody>
+                        {% for candidate in post.getCandidates() %}
+                        <tr>
+                            <td> {{ candidate.getName() }} </td>
+                            <td> {{ candidate.resultYes }} </td>
+                            <td> {{ candidate.resultNo }} </td>
+                            <td> {{ candidate.resultNeutral }} </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% else %}
+
+                <table class="table is-centered">
+                    <thead>
+                        <th> Candidate </th>
+                        <th> Votes </th>
+                    </thead>
+                    <tbody>
+                        {% for candidate in post.getCandidates() %}
+                        <tr>
+                            <td> {{ candidate.getName() }} </td>
+                            <td> {{ candidate.resultYes }} </td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td> NOTA </td>
+                            <td> {{ post.resultNOTA }} </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    <div>
+</section>
+
+{% endblock %}

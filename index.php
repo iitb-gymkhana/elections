@@ -10,6 +10,7 @@ $router->all('admin/(\w+)', function($electionId) { require __DIR__ . '/views/el
 
 $router->all('vote', function() { require __DIR__ . '/views/vote.php'; });
 $router->all('preview/(\w+)', function($electionId) { require __DIR__ . '/views/preview.php'; });
+$router->all('result/(\w+)', function($electionId) { require __DIR__ . '/views/result.php'; });
 
 $router->get('voterlist/(\w+)', function($vlId) { require __DIR__ . '/views/voterlist.php'; });
 
