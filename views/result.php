@@ -12,24 +12,40 @@ if (!$USER_SUPERADMIN &&
 
 // Compute result
 $qb = $entityManager->createQueryBuilder()
-    ->select('count(v.id)')
+    ->select('v')
     ->from('ElectionVote', 'v')
-    ->where('v.vote = :vote')
-    ->andWhere('IDENTITY(v.candidate) = :candidate');
+    ->where('IDENTITY(v.candidate) = :candidate');
 
 foreach ($election->getPosts() as $post) {
     foreach ($post->getCandidates() as $candidate) {
         $nqb = $qb->setParameter('candidate', strval($candidate->getId()));
 
-        $candidate->resultYes = $nqb->setParameter('vote', 'yes')->getQuery()->getSingleScalarResult();
-        $candidate->resultNo = $nqb->setParameter('vote', 'no')->getQuery()->getSingleScalarResult();
-        $candidate->resultNeutral = $nqb->setParameter('vote', 'neutral')->getQuery()->getSingleScalarResult();
-        $post->resultNOTA += $nqb->setParameter('vote', 'nota')->getQuery()->getSingleScalarResult();
-        $post->resultNeutral += $nqb->setParameter('vote', 'neutral')->getQuery()->getSingleScalarResult();
+        $iterableResult = $nqb->getQuery()->iterate();
+        foreach ($iterableResult as $row) {
+            $vote = $row[0];
+            switch ($vote->getVote()) {
+                case 'yes':
+                    $candidate->resultYes++;
+                break;
+                case 'no':
+                    $candidate->resultNo++;
+                break;
+                case 'neutral':
+                    $candidate->resultNeutral++;
+                    $post->resultNeutral++;
+                break;
+                case 'nota':
+                    $post->resultNOTA++;
+                break;
+            }
+
+            $entityManager->detach($vote);
+        }
     }
 
-    $post->resultNOTA /= $post->getCandidates()->count();
-    $post->resultNeutral /= $post->getCandidates()->count();
+    $count = $post->getCandidates()->count();
+    $post->resultNOTA /= $count;
+    $post->resultNeutral /= $count;
 }
 
 echo $twig->render('result.html', ['election' => $election ]);
