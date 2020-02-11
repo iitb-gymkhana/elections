@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     else if ($_POST['class'] === 'post' && $canEdit) {
         if (empty($_POST['id'])) {
             $post = new ElectionPost();
+            $post->setElection($election);
         } else {
             $post = $entityManager->find('ElectionPost', $_POST['id']);
             if ($post === null) { echo "No such post"; die(); }
@@ -60,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $post->setType($_POST['type']);
             $post->setNumber($_POST['number']);
             $post->setMOrder($_POST['order']);
-            $post->setElection($election);
 
             $entityManager->persist($post);
         }
@@ -69,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     else if ($_POST['class'] === 'candidate' && $canEdit) {
         if (empty($_POST['id'])) {
             $candidate = new ElectionCandidate();
+            $candidate->setPost($post);
         } else {
             $candidate = $entityManager->find('ElectionCandidate', $_POST['id']);
             if ($candidate === null) { echo "No such candidate"; die(); }
@@ -86,7 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $candidate->setPhoto($_POST['photo']);
             $candidate->setManifesto($_POST['manifesto']);
             $candidate->setMOrder($_POST['order']);
-            $candidate->setPost($post);
 
             $entityManager->persist($candidate);
         }
@@ -95,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     else if ($_POST['class'] === 'voterlist') {
         if (empty($_POST['id']) && $canEdit) {
             $voterList = new ElectionVoterList();
+            $voterList->setElection($election);
 
             $voters = preg_split("/\r\n|\n|\r/", $_POST['voters']);
             foreach ($voters as $voterRoll) {
@@ -118,9 +119,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!empty($_POST['delete']) && $canEdit) {
             $entityManager->remove($voterList);
         } else {
-            $voterList->setName($_POST['name']);
+            if ($canEdit) {
+                $voterList->setName($_POST['name']);
+            }
+
             $voterList->setBoothIPs($_POST['booths']);
-            $voterList->setElection($election);
             $entityManager->persist($voterList);
         }
     }

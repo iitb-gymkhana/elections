@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Create vote object
             $evote = new ElectionVote();
             $evote->setCandidate($candidate);
+            $evote->setVoterListName($voter->getVoterList()->getName());
 
             if ($post->isYNN()) {
                 $vote = $_POST['c-' . $candidate->getId()];

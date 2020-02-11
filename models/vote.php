@@ -26,6 +26,11 @@ class ElectionVote
     private $candidate;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $voterListName;
+
+    /**
      * Get the value of id
      */
     public function getId()
@@ -69,6 +74,26 @@ class ElectionVote
     public function setCandidate($candidate)
     {
         $this->candidate = $candidate;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of voterListName
+     */
+    public function getVoterListName()
+    {
+        return $this->voterListName;
+    }
+
+    /**
+     * Set the value of voterListName
+     *
+     * @return  self
+     */
+    public function setVoterListName($voterListName)
+    {
+        $this->voterListName = $voterListName;
 
         return $this;
     }
