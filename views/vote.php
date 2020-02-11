@@ -3,7 +3,7 @@ require_once "bootstrap.php";
 
 $queries = array();
 parse_str($_SERVER['QUERY_STRING'], $queries);
-$votingKey = empty($queries['key']) ? null : $queries['key'];
+$votingKey = empty($queries['key']) ? null : strtoupper($queries['key']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $election = $entityManager->find('Election', $_POST['id']);
@@ -102,7 +102,9 @@ foreach ($voters as $v) {
 
 // Nothing to vote
 if ($election === null) {
-    echo "Nothing to vote for"; die();
+    header("HTTP/1.1 302");
+    header("Location: $BASE_URL");
+    die();
 }
 
 // Voting key prompt

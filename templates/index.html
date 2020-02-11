@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="has-text-centered">
+    <br/><br/>
+    <h3 class="subtitle is-5">Sign in to cast your vote </h3>
+</div>
+<br/>
+
+<div id="ssod" class="container"></div>
+<br/><br/>
+
+<script>
+    var sso = '{{ sso }}';
+    var redirect = 'http://10.105.177.27/safe/vote';
+</script>
+
+<script src="{{ sso }}/assets/widget.js"> </script>
+<script src="/js/login.js"> </script>
+
+{% endblock %}

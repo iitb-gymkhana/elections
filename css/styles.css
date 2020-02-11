@@ -14,3 +14,8 @@ img.candidate {
 .table.is-centered {
     margin: 0 auto;
 }
+
+#ssod {
+    width: 80vw;
+    max-width: 300px;
+}

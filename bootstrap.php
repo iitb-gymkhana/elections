@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager;
 require_once "vendor/autoload.php";
 
 // Register models
+
 require_once "src/election.php";
 require_once "src/post.php";
 require_once "src/candidate.php";
@@ -38,13 +39,18 @@ $conn = array(
 // obtaining the entity manager
 $entityManager = EntityManager::create($conn, $config);
 
+$BASE_URL = '/';
+
 $loader = new \Twig\Loader\FilesystemLoader('./templates');
 $twig = new \Twig\Environment($loader, [
-//    'cache' => '/path/to/compilation_cache',
+//  'cache' => '/path/to/compilation_cache',
 ]);
 
+$twig->addGlobal('baseUrl', $BASE_URL);
+$twig->addGlobal('sso', 'https://sso-uat.iitb.ac.in');
+
 // User roll number
-$USER_ROLL = $_SERVER['OIDC_CLAIM_employeeNumber'];
+$USER_ROLL = isset($_SERVER['OIDC_CLAIM_employeeNumber']) ? $_SERVER['OIDC_CLAIM_employeeNumber'] : null;
 $USER_SUPERADMIN = in_array($USER_ROLL, array(
     '160010005',
 ));
