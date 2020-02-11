@@ -123,4 +123,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 echo $twig->render('election.html', [
     'election' => $election,
+    'superAdmin' => $USER_SUPERADMIN,
 ]);
