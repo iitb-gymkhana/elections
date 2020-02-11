@@ -19,8 +19,36 @@
                     <div class="column is-narrow has-text-centered">
                         <img class="candidate" src="{{ candidate.getPhoto() }}" />
                         {{ candidate.getName() }}
+
+                        <br />
+
+                        {% if post.isYNN() %}
+                        <label class="radio">
+                            <input type="radio" name="{{ candidate.getId() }}" required value="yes"> Yes
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="{{ candidate.getId() }}" required value="no"> No
+                        </label>
+                        <br />
+                        <label class="radio">
+                            <input type="radio" name="{{ candidate.getId() }}" required value="neutral"> Neutral
+                        </label>
+
+                        {% else %}
+                        <label class="radio">
+                            <input type="radio" name="{{ post.getId() }}" required value="{{ candidate.getId() }}"> Yes
+                        </label>
+                        {% endif %}
                     </div>
                     {% endfor %}
+                </div>
+
+                <div class="is-centered nota-radio">
+                {% if not post.isYNN() %}
+                    <label class="radio">
+                        <input type="radio" name="{{ post.getId() }}" required value="nota"> None of the above
+                    </label>
+                {% endif %}
                 </div>
             </div>
             {% endfor %}

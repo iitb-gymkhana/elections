@@ -141,4 +141,11 @@ class ElectionPost
     {
         return $this->candidates;
     }
+
+    /**
+     * Check if yes-no-neutral election
+     */
+    public function isYNN() {
+        return ($this->number > 1) || ($this->candidates->count() == 1);
+    }
 }
