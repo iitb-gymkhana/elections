@@ -13,6 +13,9 @@ header('Content-Disposition: attachment; filename="' . $voterList->getName() .'.
 $f = fopen('php://output', 'w');
 fputcsv($f, array('Roll Number', 'Code'), ',');
 
-foreach ($query->getResult() as $voter) {
+$iterableResult = $query->iterate();
+foreach ($iterableResult as $row) {
+    $voter = $row[0];
     fputcsv($f, array($voter->getRollNo(), $voter->getCode()), ',');
+    $entityManager->detach($voter);
 }
