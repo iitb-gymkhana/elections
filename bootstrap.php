@@ -12,6 +12,7 @@ require_once "vendor/autoload.php";
 // Register models
 require_once "src/election.php";
 require_once "src/post.php";
+require_once "src/candidate.php";
 
 // Create a simple "default" Doctrine ORM configuration for Annotations
 $isDevMode = true;

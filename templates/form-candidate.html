@@ -1,0 +1,32 @@
+<div class="field">
+    <label class="label">Name</label>
+    <div class="control">
+        <input class="input" name="name" type="text" placeholder="e.g. Jack Sparrow" value="{{ candidate.getName() }}" required>
+    </div>
+</div>
+
+<div class="field">
+    <label class="label">Photo URL</label>
+    <div class="control">
+        <input class="input" name="photo" type="url" placeholder="e.g. https://..." value="{{ candidate.getPhoto() }}">
+    </div>
+</div>
+
+<div class="field">
+    <label class="label">Manifesto URL</label>
+    <div class="control">
+        <input class="input" name="manifesto" type="url" placeholder="e.g. https://..." value="{{ candidate.getManifesto() }}">
+    </div>
+</div>
+
+<div class="buttons">
+    <input type="submit" class="button is-link is-outlined is-fullwidth is-success" value="Submit" />
+
+    {% if candidate %}
+    <input type="submit" class="button is-link is-outlined is-fullwidth is-danger" name="delete" value="Delete" />
+    {% endif %}
+</div>
+
+<input hidden name="class" value="candidate">
+<input hidden name="id" value="{{ candidate.getId() }}">
+<input hidden name="postid" value="{{ post.getId() }}">

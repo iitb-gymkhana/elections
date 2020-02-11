@@ -23,10 +23,22 @@
             <div class="column is-half">
                 {% for post in posts %}
                 <div class="box ">
-                    {{ post.getName() }}
-                    <button data-target="edit-post-{{ post.getId() }}" class="modal-button button is-link is-outlined is-fullwidth">
-                        Edit Post
-                    </button>
+                    <div class="field has-text-centered">
+                        <h2 class="subtitle">{{ post.getName() }}</h2>
+                    </div>
+
+                    {% for candidate in post.getCandidates() %}
+                    {{ candidate.getName() }}
+                    {% endfor %}
+
+                    <div class="buttons">
+                        <button data-target="create-candidate-{{ post.getId() }}" class="modal-button button is-success is-outlined is-fullwidth">
+                            Add Candidate
+                        </button>
+                        <button data-target="edit-post-{{ post.getId() }}" class="modal-button button is-link is-outlined is-fullwidth">
+                            Edit Post
+                        </button>
+                    </div>
                 </div>
                 {% endfor %}
 
@@ -49,6 +61,19 @@
                 <h2 class="subtitle">Edit Post</h2>
             </div>
             {% include "form-post.html" %}
+        </form>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<div class="modal" id="create-candidate-{{ post.getId() }}">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <form class="box" method="POST">
+            <div class="field has-text-centered">
+                <h2 class="subtitle">Add Candidate</h2>
+            </div>
+            {% include "form-candidate.html" %}
         </form>
     </div>
     <button class="modal-close is-large" aria-label="close"></button>

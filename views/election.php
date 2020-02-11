@@ -33,6 +33,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    if ($_POST['class'] === 'candidate') {
+        if (empty($_POST['id'])) {
+            $candidate = new ElectionCandidate();
+        } else {
+            $candidate = $entityManager->find('ElectionCandidate', $_POST['id']);
+            if ($candidate === null) { echo "No such candidate"; die(); }
+        }
+
+        // Get the linked post
+        $post = $entityManager->find('ElectionPost', $_POST['postid']);
+        if ($post === null) { echo "No such post"; die(); }
+
+        // Check if deleting
+        if (!empty($_POST['delete'])) {
+            $entityManager->remove($candidate);
+        } else {
+            $candidate->setName($_POST['name']);
+            $candidate->setPhoto($_POST['photo']);
+            $candidate->setManifesto($_POST['manifesto']);
+            $candidate->setPost($post);
+
+            $entityManager->persist($candidate);
+        }
+    }
+
     $entityManager->flush();
     header("HTTP/1.1 303 See Other");
     $link = $_SERVER['REQUEST_URI'];

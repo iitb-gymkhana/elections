@@ -1,6 +1,7 @@
 <?php
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -34,6 +35,16 @@ class ElectionPost
      * @ORM\Column(type="string", options={"default" : "ALL"})
      */
     protected $type;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ElectionCandidate", mappedBy="post")
+     */
+    protected $candidates;
+
+    public function __construct()
+    {
+        $this->candidates = new ArrayCollection();
+    }
 
     /**
      * Get the value of id
@@ -121,5 +132,13 @@ class ElectionPost
         $this->type = $type;
 
         return $this;
+    }
+
+    /**
+     * Get the value of candidates
+     */
+    public function getCandidates()
+    {
+        return $this->candidates;
     }
 }
