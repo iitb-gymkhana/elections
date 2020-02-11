@@ -21,6 +21,7 @@
     <input type="submit" class="button is-link is-outlined is-fullwidth is-success" value="Submit" />
 
     {% if voterList %}
+    <a href="/voterlist/{{ voterList.getId() }}" class="button is-link is-outlined is-fullwidth is-primary" target="_blank"> Download </a>
     <input type="submit" class="button is-link is-outlined is-fullwidth is-danger" name="delete" value="Delete" />
     {% endif %}
 </div>

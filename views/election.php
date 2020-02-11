@@ -66,6 +66,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_POST['class'] === 'voterlist') {
         if (empty($_POST['id'])) {
             $voterList = new ElectionVoterList();
+
+            $voters = preg_split("/\r\n|\n|\r/", $_POST['voters']);
+            foreach ($voters as $voterRoll) {
+                if (empty($voterRoll)) continue;
+
+                $voter = new ElectionVoter();
+                $voter->setRollNo($voterRoll);
+                $voter->setVoted(false);
+                $voter->setVoterList($voterList);
+                $voter->setElection($election);
+                $voter->setCode("FFFFFF");
+                $entityManager->persist($voter);
+            }
+
         } else {
             $voterList = $entityManager->find('ElectionVoterList', $_POST['id']);
             if ($voterList === null) { echo "No such voter list"; die(); }
@@ -77,7 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $voterList->setName($_POST['name']);
             $voterList->setElection($election);
-
             $entityManager->persist($voterList);
         }
     }
