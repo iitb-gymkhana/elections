@@ -63,6 +63,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    if ($_POST['class'] === 'voterlist') {
+        if (empty($_POST['id'])) {
+            $voterList = new ElectionVoterList();
+        } else {
+            $voterList = $entityManager->find('ElectionVoterList', $_POST['id']);
+            if ($voterList === null) { echo "No such voter list"; die(); }
+        }
+
+        // Check if deleting
+        if (!empty($_POST['delete'])) {
+            $entityManager->remove($voterList);
+        } else {
+            $voterList->setName($_POST['name']);
+            $voterList->setElection($election);
+
+            $entityManager->persist($voterList);
+        }
+    }
+
     $entityManager->flush();
     header("HTTP/1.1 303 See Other");
     if (!isset($link)) $link = $_SERVER['REQUEST_URI'];
@@ -72,5 +91,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 echo $twig->render('election.html', [
     'election' => $election,
-    'posts' => $election->getPosts(),
 ]);

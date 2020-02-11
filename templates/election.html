@@ -21,7 +21,31 @@
     <div class="container">
         <div class="columns is-centered">
             <div class="column is-half">
-                {% for post in posts %}
+                <div class="box ">
+                    <div class="field has-text-centered">
+                        <h2 class="subtitle is-4">Voters</h2>
+                    </div>
+
+                    <nav class="panel is-info is-shadowless">
+                        {% for voterList in election.getVoterLists() %}
+                        <a data-target="edit-voterlist-{{ voterList.getId() }}" class="panel-block modal-button">
+                            {{ voterList.getName() }}
+                        </a>
+                        {% endfor %}
+                    </nav>
+
+                    <button data-target="create-voterlist" class="modal-button button is-danger is-outlined is-fullwidth">
+                        Upload List
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                {% for post in election.getPosts() %}
                 <div class="box ">
                     <div class="field has-text-centered">
                         <h2 class="subtitle is-4">{{ post.getName() }}</h2>
@@ -56,6 +80,7 @@
     </div>
 </section>
 
+<!-------------------- POST -------------------->
 <div class="modal" id="create-post">
     <div class="modal-background"></div>
     <div class="modal-content">
@@ -110,6 +135,34 @@
             <button class="modal-close is-large" aria-label="close"></button>
         </div>
     {% endfor %}
+{% endfor %}
+
+<!----------------------- Voter List ----------------------->
+<div class="modal" id="create-voterlist">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <form class="box" method="POST">
+            <div class="field has-text-centered">
+                <h2 class="subtitle">Upload Voter List</h2>
+            </div>
+            {% include "form-voterlist.html" %}
+        </form>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+{% for voterList in election.getVoterLists() %}
+<div class="modal" id="edit-voterlist-{{ voterList.getId() }}">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <form class="box" method="POST">
+            <div class="field has-text-centered">
+                <h2 class="subtitle">Edit Voter List</h2>
+            </div>
+            {% include "form-voterlist.html" %}
+        </form>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
 {% endfor %}
 
 {% endblock %}

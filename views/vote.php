@@ -20,8 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Create vote object
                 $evote->setVote($vote);
                 $entityManager->persist($evote);
-
-                echo "Voted for candidate as #$vote";
             } else {
                 $vote = $_POST['p-' . $post->getId()];
                 if (!isset($vote)) {
@@ -35,8 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $evote->setVote('yes');
                     $entityManager->persist($evote);
                 }
-
-                echo "Voted for candidate #$vote";
             }
         }
     }

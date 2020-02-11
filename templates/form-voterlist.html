@@ -1,0 +1,26 @@
+<div class="field">
+    <label class="label">Name</label>
+    <div class="control">
+        <input class="input" name="name" type="text" placeholder="Hostel 1" value="{{ voterList.getName() }}" required>
+    </div>
+</div>
+
+{% if not voterList %}
+<div class="field">
+    <label class="label">Roll Number List</label>
+    <div class="control">
+        <textarea class="textarea" placeholder="160010005 ..." name="voters" required></textarea>
+    </div>
+</div>
+{% endif %}
+
+<input hidden name="class" value="voterlist">
+<input hidden name="id" value="{{ voterList.getId() }}">
+
+<div class="buttons">
+    <input type="submit" class="button is-link is-outlined is-fullwidth is-success" value="Submit" />
+
+    {% if voterList %}
+    <input type="submit" class="button is-link is-outlined is-fullwidth is-danger" name="delete" value="Delete" />
+    {% endif %}
+</div>

@@ -25,9 +25,15 @@ class Election
      */
     protected $posts;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ElectionVoterList", mappedBy="election")
+     */
+    protected $voterLists;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+        $this->voterLists = new ArrayCollection();
     }
 
     public function getId()
@@ -51,5 +57,13 @@ class Election
     public function getPosts()
     {
         return $this->posts;
+    }
+
+    /**
+     * Get the value of voterLists
+     */
+    public function getVoterLists()
+    {
+        return $this->voterLists;
     }
 }
