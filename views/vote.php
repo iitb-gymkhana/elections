@@ -1,6 +1,10 @@
 <?php
 require_once "bootstrap.php";
 
+$queries = array();
+parse_str($_SERVER['QUERY_STRING'], $queries);
+$votingKey = empty($queries['key']) ? null : $queries['key'];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $election = $entityManager->find('Election', $_POST['id']);
     if ($election === null) { echo "No such election"; die(); }
@@ -26,6 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if duplicate
     if ($voter->getVoted() === true) {
         echo "Voter already voted"; die;
+    }
+
+    // Requires voting key
+    if ($election->getRequireCode() && $votingKey !== $voter->getCode()) {
+        echo "Illegal voting key!"; die;
     }
 
     // Mark voted
@@ -71,19 +80,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $entityManager->flush();
 
     header("HTTP/1.1 303 See Other");
-    if (!isset($link)) $link = $_SERVER['REQUEST_URI'];
+    if (!isset($link)) $link = strtok($_SERVER['REQUEST_URI'], '?');
     header("Location: $link");
     die();
 }
 
 // Get all elections for voter
-$query = $entityManager->createQuery("SELECT u FROM ElectionVoter u WHERE u.rollNo = '$USER_ROLL'");
+$query = $entityManager->createQuery(
+    "SELECT u FROM ElectionVoter u WHERE u.rollNo = '$USER_ROLL' ORDER BY u.id ASC");
 $voters = $query->getResult();
 
 // Check which election not voted
 $election = null;
+$voter = null;
 foreach ($voters as $v) {
     if (!$v->getVoted() && $v->getElection()->getActive() === true) {
+        $voter = $v;
         $election = $v->getElection();
     }
 }
@@ -91,6 +103,15 @@ foreach ($voters as $v) {
 // Nothing to vote
 if ($election === null) {
     echo "Nothing to vote for"; die();
+}
+
+// Voting key prompt
+if ($election->getRequireCode() && $votingKey !== $voter->getCode()) {
+    echo $twig->render('vote-key.html', [
+        'election' => $election,
+        'name' => $_SERVER['OIDC_CLAIM_name'],
+    ]);
+    die();
 }
 
 echo $twig->render('vote.html', ['election' => $election]);

@@ -1,6 +1,7 @@
 <?php
 require_once "bootstrap.php";
 include "check-admin.php";
+include "helpers.php";
 
 // Get election
 $election = $entityManager->find('Election', $electionId);
@@ -23,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Update
         if (isset($_POST['name'])) {
             $election->setName($_POST['name']);
+            $election->setRequireCode(isset($_POST['require_code']));
         }
 
         $entityManager->persist($election);
@@ -93,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $voter->setVoted(false);
                 $voter->setVoterList($voterList);
                 $voter->setElection($election);
-                $voter->setCode("FFFFFF");
+                $voter->setCode(generateRandomString(6));
                 $entityManager->persist($voter);
             }
 

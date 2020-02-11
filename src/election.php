@@ -45,6 +45,11 @@ class Election
      */
     protected $creator;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $requireCode;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -138,6 +143,26 @@ class Election
     public function setCreator($creator)
     {
         $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of requireCode
+     */
+    public function getRequireCode()
+    {
+        return $this->requireCode;
+    }
+
+    /**
+     * Set the value of requireCode
+     *
+     * @return  self
+     */
+    public function setRequireCode($requireCode)
+    {
+        $this->requireCode = $requireCode;
 
         return $this;
     }
