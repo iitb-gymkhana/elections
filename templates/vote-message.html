@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Vote{% endblock %}
+
+{% block content %}
+
+<div class="container has-text-centered">
+    <br/><br/>
+    <h3 class="subtitle is-5"> {{ message }} </h3>
+
+    <br/>
+    <h3 class="subtitle is-6"> This page will close automatically </h3>
+
+    <div class="progress">
+        <progress class="progress is-danger" value="15" max="100" id="progress"></progress>
+    </div>
+
+    <script>
+        var time = 0;
+        var interval = setInterval(function() {
+            time += 1;
+            document.getElementById('progress').value = time;
+            if (time > 100) {
+                clearInterval(interval);
+                window.location.href = '{{ redir }}';
+            }
+        }, 15);
+    </script>
+
+</div>
+<br/>
+
+{% endblock %}

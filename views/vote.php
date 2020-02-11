@@ -1,10 +1,12 @@
 <?php
 require_once "bootstrap.php";
 
+// Get voting key
 $queries = array();
 parse_str($_SERVER['QUERY_STRING'], $queries);
 $votingKey = empty($queries['key']) ? null : strtoupper($queries['key']);
 
+// Actual voting logic
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $election = $entityManager->find('Election', $_POST['id']);
     if ($election === null) { echo "No such election"; die(); }
@@ -79,9 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $entityManager->flush();
 
-    header("HTTP/1.1 303 See Other");
-    if (!isset($link)) $link = strtok($_SERVER['REQUEST_URI'], '?');
-    header("Location: $link");
+    echo $twig->render('vote-message.html', [
+        'message' => 'Your vote has been recorded!',
+        'redir' => 'safe/vote',
+    ]);
     die();
 }
 
@@ -102,8 +105,10 @@ foreach ($voters as $v) {
 
 // Nothing to vote
 if ($election === null) {
-    header("HTTP/1.1 302");
-    header("Location: $BASE_URL");
+    echo $twig->render('vote-message.html', [
+        'message' => 'No elections for you to vote for right now!',
+        'redir' => '',
+    ]);
     die();
 }
 
