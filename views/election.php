@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // End election
             if ($election->getActive()) {
                 if (!empty($_POST['end'])) {
+                    $election->setSuspended(false);
                     $election->setActive(false);
                     $election->setEnded(true);
                 }

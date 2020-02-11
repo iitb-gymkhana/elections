@@ -14,6 +14,20 @@
   </label>
 </div>
 
+{% if election %}
+{% if election.getSuspended() %}
+<div class="notification is-warning"> Suspended </div>
+{% elseif election.getActive() %}
+<div class="notification is-success"> Currently Active </div>
+{% elseif election.getEnded() %}
+<div class="notification is-danger"> Election Completed </div>
+{% else %}
+<div class="notification is-info"> Yet to start </div>
+{% endif %}
+
+{% endif %}
+
+
 <input hidden name="class" value="election">
 
 <div class="buttons">
