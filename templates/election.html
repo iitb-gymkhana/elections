@@ -10,7 +10,7 @@
             <div class="column is-half">
                 <form class="box" method="POST">
                     <div class="field has-text-centered">
-                        <h2 class="subtitle">Election</h2>
+                        <h2 class="subtitle is-4">Election</h2>
                     </div>
                     {% include "form-election.html" %}
                 </form>
@@ -24,12 +24,16 @@
                 {% for post in posts %}
                 <div class="box ">
                     <div class="field has-text-centered">
-                        <h2 class="subtitle">{{ post.getName() }}</h2>
+                        <h2 class="subtitle  is-4">{{ post.getName() }}</h2>
                     </div>
 
-                    {% for candidate in post.getCandidates() %}
-                    {{ candidate.getName() }}
-                    {% endfor %}
+                    <nav class="panel is-info is-shadowless">
+                        {% for candidate in post.getCandidates() %}
+                        <a data-target="edit-candidate-{{ candidate.getId() }}" class="panel-block modal-button">
+                            {{ candidate.getName() }}
+                        </a>
+                        {% endfor %}
+                    </nav>
 
                     <div class="buttons">
                         <button data-target="create-candidate-{{ post.getId() }}" class="modal-button button is-success is-outlined is-fullwidth">
@@ -52,34 +56,6 @@
     </div>
 </section>
 
-{% for post in posts %}
-<div class="modal" id="edit-post-{{ post.getId() }}">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-        <form class="box" method="POST">
-            <div class="field has-text-centered">
-                <h2 class="subtitle">Edit Post</h2>
-            </div>
-            {% include "form-post.html" %}
-        </form>
-    </div>
-    <button class="modal-close is-large" aria-label="close"></button>
-</div>
-
-<div class="modal" id="create-candidate-{{ post.getId() }}">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-        <form class="box" method="POST">
-            <div class="field has-text-centered">
-                <h2 class="subtitle">Add Candidate</h2>
-            </div>
-            {% include "form-candidate.html" %}
-        </form>
-    </div>
-    <button class="modal-close is-large" aria-label="close"></button>
-</div>
-{% endfor %}
-
 <div class="modal" id="create-post">
     <div class="modal-background"></div>
     <div class="modal-content">
@@ -92,5 +68,48 @@
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
 </div>
+
+{% for post in posts %}
+    <div class="modal" id="edit-post-{{ post.getId() }}">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <form class="box" method="POST">
+                <div class="field has-text-centered">
+                    <h2 class="subtitle">Edit Post</h2>
+                </div>
+                {% include "form-post.html" %}
+            </form>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <div class="modal" id="create-candidate-{{ post.getId() }}">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <form class="box" method="POST">
+                <div class="field has-text-centered">
+                    <h2 class="subtitle">Add Candidate</h2>
+                </div>
+                {% include "form-candidate.html" %}
+            </form>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    {% for candidate in post.getCandidates() %}
+        <div class="modal" id="edit-candidate-{{ candidate.getId() }}">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <form class="box" method="POST">
+                    <div class="field has-text-centered">
+                        <h2 class="subtitle">Edit Candidate</h2>
+                    </div>
+                    {% include "form-candidate.html" %}
+                </form>
+            </div>
+            <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+    {% endfor %}
+{% endfor %}
 
 {% endblock %}

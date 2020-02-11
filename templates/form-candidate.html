@@ -19,6 +19,10 @@
     </div>
 </div>
 
+<input hidden name="class" value="candidate">
+<input hidden name="id" value="{{ candidate.getId() }}">
+<input hidden name="postid" value="{{ post.getId() }}">
+
 <div class="buttons">
     <input type="submit" class="button is-link is-outlined is-fullwidth is-success" value="Submit" />
 
@@ -26,7 +30,3 @@
     <input type="submit" class="button is-link is-outlined is-fullwidth is-danger" name="delete" value="Delete" />
     {% endif %}
 </div>
-
-<input hidden name="class" value="candidate">
-<input hidden name="id" value="{{ candidate.getId() }}">
-<input hidden name="postid" value="{{ post.getId() }}">
