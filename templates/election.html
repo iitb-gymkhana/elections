@@ -31,6 +31,7 @@
                     <nav class="panel is-info is-shadowless">
                         {% for voterList in election.getVoterLists() %}
                         <a data-target="edit-voterlist-{{ voterList.getId() }}" class="panel-block modal-button">
+                            <span class="panel-icon"> &#8962; </span>
                             {{ voterList.getName() }}
                         </a>
                         {% endfor %}
@@ -58,6 +59,7 @@
                     <nav class="panel is-info is-shadowless">
                         {% for candidate in post.getCandidates() %}
                         <a data-target="edit-candidate-{{ candidate.getId() }}" class="panel-block modal-button">
+                            <span class="panel-icon"> &#128505; </span>
                             {{ candidate.getName() }}
                         </a>
                         {% endfor %}
