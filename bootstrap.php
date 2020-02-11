@@ -40,6 +40,7 @@ $conn = array(
 $entityManager = EntityManager::create($conn, $config);
 
 $BASE_URL = '/';
+$FULL_URL = 'http://10.105.177.27' . $BASE_URL;
 
 $loader = new \Twig\Loader\FilesystemLoader('./templates');
 $twig = new \Twig\Environment($loader, [
@@ -48,6 +49,7 @@ $twig = new \Twig\Environment($loader, [
 
 $twig->addGlobal('baseUrl', $BASE_URL);
 $twig->addGlobal('sso', 'https://sso-uat.iitb.ac.in');
+$twig->addGlobal('ssoredir', $FULL_URL . 'safe/redir?logout=' . $FULL_URL . 'safe/vote');
 
 // User roll number
 $USER_ROLL = isset($_SERVER['OIDC_CLAIM_employeeNumber']) ? $_SERVER['OIDC_CLAIM_employeeNumber'] : null;
