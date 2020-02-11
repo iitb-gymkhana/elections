@@ -25,7 +25,7 @@
 <div class="field">
     <label class="label">Order</label>
     <div class="control">
-        <input class="input" name="order" type="number" placeholder="0" value="{{ candidate.getMOrder() }}"
+        <input class="input" name="order" type="number" placeholder="0" value="{{ candidate.getMOrder() | default('0') }}"
             required {% if not canEdit %} disabled {% endif %}>
     </div>
 </div>

@@ -9,7 +9,7 @@
 <div class="field">
     <label class="label">Number</label>
     <div class="control">
-        <input class="input" name="number" type="number" placeholder="Number of candidates to elect" value="{{ post.getNumber() }}" min="1"
+        <input class="input" name="number" type="number" placeholder="Number of candidates to elect" value="{{ post.getNumber() | default('1') }}" min="1"
             required {% if not canEdit %} disabled {% endif %}>
     </div>
 </div>
@@ -17,7 +17,7 @@
 <div class="field">
     <label class="label">Order</label>
     <div class="control">
-        <input class="input" name="order" type="number" placeholder="0" value="{{ post.getMOrder() }}"
+        <input class="input" name="order" type="number" placeholder="0" value="{{ post.getMOrder() | default('0') }}"
             required {% if not canEdit %} disabled {% endif %}>
     </div>
 </div>
