@@ -1,5 +1,6 @@
 <?php
 require_once "bootstrap.php";
+require_once "helpers.php";
 
 // Get voting key
 $queries = array();
@@ -98,8 +99,10 @@ $election = null;
 $voter = null;
 foreach ($voters as $v) {
     if (!$v->getVoted() && $v->getElection()->getActive() && !$v->getElection()->getSuspended()) {
-        $voter = $v;
-        $election = $v->getElection();
+        if (checkIP($v) !== false) {
+            $voter = $v;
+            $election = $v->getElection();
+        }
     }
 }
 
