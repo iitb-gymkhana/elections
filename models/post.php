@@ -37,6 +37,11 @@ class ElectionPost
     protected $type;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $mOrder = 0;
+
+    /**
      * Number of NOTA votes
      */
     public $resultNOTA = 0;
@@ -48,6 +53,7 @@ class ElectionPost
 
     /**
      * @ORM\OneToMany(targetEntity="ElectionCandidate", mappedBy="post")
+     * @ORM\OrderBy({"mOrder" = "ASC"})
      */
     protected $candidates;
 
@@ -168,5 +174,25 @@ class ElectionPost
         }
 
         return $this->type === strtoupper($_SERVER['OIDC_CLAIM_employeeType']);
+    }
+
+    /**
+     * Get the value of mOrder
+     */
+    public function getMOrder()
+    {
+        return $this->mOrder;
+    }
+
+    /**
+     * Set the value of mOrder
+     *
+     * @return  self
+     */
+    public function setMOrder($mOrder)
+    {
+        $this->mOrder = $mOrder;
+
+        return $this;
     }
 }

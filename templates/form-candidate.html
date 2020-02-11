@@ -22,6 +22,14 @@
     </div>
 </div>
 
+<div class="field">
+    <label class="label">Order</label>
+    <div class="control">
+        <input class="input" name="order" type="number" placeholder="0" value="{{ candidate.getMOrder() }}"
+            required {% if not canEdit %} disabled {% endif %}>
+    </div>
+</div>
+
 <input hidden name="class" value="candidate">
 <input hidden name="id" value="{{ candidate.getId() }}">
 <input hidden name="postid" value="{{ post.getId() }}">

@@ -37,6 +37,7 @@ class Election
 
     /**
      * @ORM\OneToMany(targetEntity="ElectionPost", mappedBy="election")
+     * @ORM\OrderBy({"mOrder" = "ASC"})
      */
     protected $posts;
 

@@ -36,6 +36,11 @@ class ElectionCandidate
     protected $manifesto;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $mOrder = 0;
+
+    /**
      * Number of yes votes
      */
     public $resultYes = 0;
@@ -132,6 +137,26 @@ class ElectionCandidate
     public function setManifesto($manifesto)
     {
         $this->manifesto = $manifesto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of mOrder
+     */
+    public function getMOrder()
+    {
+        return $this->mOrder;
+    }
+
+    /**
+     * Set the value of mOrder
+     *
+     * @return  self
+     */
+    public function setMOrder($mOrder)
+    {
+        $this->mOrder = $mOrder;
 
         return $this;
     }

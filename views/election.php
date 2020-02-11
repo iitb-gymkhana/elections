@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $post->setName($_POST['name']);
             $post->setType($_POST['type']);
             $post->setNumber($_POST['number']);
+            $post->setMOrder($_POST['order']);
             $post->setElection($election);
 
             $entityManager->persist($post);
@@ -84,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $candidate->setName($_POST['name']);
             $candidate->setPhoto($_POST['photo']);
             $candidate->setManifesto($_POST['manifesto']);
+            $candidate->setMOrder($_POST['order']);
             $candidate->setPost($post);
 
             $entityManager->persist($candidate);

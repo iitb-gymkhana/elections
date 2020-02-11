@@ -15,6 +15,14 @@
 </div>
 
 <div class="field">
+    <label class="label">Order</label>
+    <div class="control">
+        <input class="input" name="order" type="number" placeholder="0" value="{{ post.getMOrder() }}"
+            required {% if not canEdit %} disabled {% endif %}>
+    </div>
+</div>
+
+<div class="field">
     <label class="label">Electorate Type</label>
     <div class="control">
         <label class="radio">
