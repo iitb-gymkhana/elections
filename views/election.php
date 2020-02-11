@@ -20,12 +20,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($post === null) { echo "No such post"; die(); }
         }
 
-        $post->setName($_POST['name']);
-        $post->setType($_POST['type']);
-        $post->setNumber($_POST['number']);
-        $post->setElection($election);
+        // Check if deleting
+        if (!empty($_POST['delete'])) {
+            $entityManager->remove($post);
+        } else {
+            $post->setName($_POST['name']);
+            $post->setType($_POST['type']);
+            $post->setNumber($_POST['number']);
+            $post->setElection($election);
 
-        $entityManager->persist($post);
+            $entityManager->persist($post);
+        }
     }
 
     $entityManager->flush();

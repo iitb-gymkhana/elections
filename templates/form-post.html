@@ -30,4 +30,10 @@
 <input hidden name="class" value="post">
 <input hidden name="id" value="{{ post.getId() }}">
 
-<input type="submit" class="button is-link is-outlined is-fullwidth is-success" value="Submit" />
+<div class="buttons">
+    <input type="submit" class="button is-link is-outlined is-fullwidth is-success" value="Submit" />
+
+    {% if post %}
+    <input type="submit" class="button is-link is-outlined is-fullwidth is-danger" name="delete" value="Delete" />
+    {% endif %}
+</div>
