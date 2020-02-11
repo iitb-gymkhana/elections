@@ -4,11 +4,17 @@ require_once "bootstrap.php";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $election = $entityManager->find('Election', $_POST['id']);
     if ($election === null) { echo "No such election"; die(); }
+
+    // Election active
+    if ($election->getActive() !== true) {
+        echo "Election not active"; die;
+    }
+
     $electionId = $election->getId();
 
     // Get voter object
     $query = $entityManager->createQuery(
-        "SELECT u FROM ElectionVoter u WHERE u.rollNo = '$USER_ROLL' AND IDENTITY(u.election) = '$electionId' "
+        "SELECT u FROM ElectionVoter u WHERE u.rollNo = '$USER_ROLL' AND IDENTITY(u.election) = '$electionId'"
     )->setMaxResults(1);
     $voter = $query->getOneOrNullResult();
 
@@ -73,7 +79,7 @@ $voters = $query->getResult();
 // Check which election not voted
 $election = null;
 foreach ($voters as $v) {
-    if (!$v->getVoted()) { // TODO: Check if election active
+    if (!$v->getVoted() && $v->getElection()->getActive() === true) {
         $election = $v->getElection();
     }
 }
