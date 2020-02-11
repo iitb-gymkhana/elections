@@ -22,7 +22,7 @@ class ElectionPost
 
     /**
      * @ORM\ManyToOne(targetEntity="Election", inversedBy="posts")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="election_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $election;
 
