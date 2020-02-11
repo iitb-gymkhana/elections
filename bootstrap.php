@@ -28,8 +28,11 @@ $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/src"), $i
 
 // database configuration parameters
 $conn = array(
-    'driver' => 'pdo_sqlite',
-    'path' => __DIR__ . '/db.sqlite',
+    'dbname' => 'elections',
+    'user' => 'elections',
+    'password' => 'n4OZd7Av8XIvBqvS',
+    'host' => 'mysql',
+    'driver' => 'pdo_mysql',
 );
 
 // obtaining the entity manager

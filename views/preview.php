@@ -5,4 +5,4 @@ require_once "bootstrap.php";
 $election = $entityManager->find('Election', $electionId);
 if ($election === null) { echo "No such election"; die(); }
 
-echo $twig->render('vote.html', ['elections' => [ $election ] ]);
+echo $twig->render('vote.html', ['election' => $election ]);

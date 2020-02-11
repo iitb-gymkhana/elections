@@ -94,7 +94,7 @@
     <button class="modal-close is-large" aria-label="close"></button>
 </div>
 
-{% for post in posts %}
+{% for post in election.getPosts() %}
     <div class="modal" id="edit-post-{{ post.getId() }}">
         <div class="modal-background"></div>
         <div class="modal-content">
