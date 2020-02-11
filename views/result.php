@@ -17,12 +17,36 @@ $qb = $entityManager->createQueryBuilder()
     ->where('IDENTITY(v.candidate) = :candidate');
 
 foreach ($election->getPosts() as $post) {
+    // Detailed result
+    $detail = array();
+    $structure = array();
+
+    // Create detail structure
+    foreach ($post->getCandidates() as $candidate) {
+        $structure[$candidate->getName()] = array(
+            'yes' => 0, 'no' => 0, 'nota' => 0, 'neutral' => 0,
+        );
+    }
+
     foreach ($post->getCandidates() as $candidate) {
         $nqb = $qb->setParameter('candidate', strval($candidate->getId()));
 
         $iterableResult = $nqb->getQuery()->iterate();
         foreach ($iterableResult as $row) {
             $vote = $row[0];
+
+            // Get voter list for detailed result
+            if ($vList = $vote->getVoterListName()) {
+                if (!array_key_exists($vList, $detail)) {
+                    $detail[$vList] = $structure;
+                }
+
+                // Add vote
+                if (array_key_exists($vote->getVote(), $detail[$vList][$candidate->getName()])) {
+                    $detail[$vList][$candidate->getName()][$vote->getVote()]++;
+                }
+            }
+
             switch ($vote->getVote()) {
                 case 'yes':
                     $candidate->resultYes++;
@@ -42,6 +66,9 @@ foreach ($election->getPosts() as $post) {
             $entityManager->detach($vote);
         }
     }
+
+    ksort($detail, SORT_NATURAL);
+    $post->resultDetail = $detail;
 
     $count = $post->getCandidates()->count();
     $post->resultNOTA /= $count;

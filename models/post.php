@@ -52,6 +52,11 @@ class ElectionPost
     public $resultNeutral = 0;
 
     /**
+     * Detailed result
+     */
+    public $resultDetail = null;
+
+    /**
      * @ORM\OneToMany(targetEntity="ElectionCandidate", mappedBy="post")
      * @ORM\OrderBy({"mOrder" = "ASC"})
      */

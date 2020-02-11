@@ -59,6 +59,69 @@
                 </table>
 
                 {% endif %}
+
+
+                <!-- =============================== SUPERADMIN STUFF =============================== -->
+                {% if post.resultDetail %}
+                <br />
+                {% if post.isYNN() %}
+                <table class="table is-centered">
+                    <thead>
+                        <tr>
+                            <th align="left" rowspan="2"> </th>
+                            {% for name, candidate in post.resultDetail|first %}
+                                <th align="center" colspan="4"> {{ name }}</th>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for name, candidate in post.resultDetail|first %}
+                                <th align="center"> Yes </th>
+                                <th align="center"> No </th>
+                                <th align="center"> Neutral </th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for list, candidates in post.resultDetail %}
+                        <tr>
+                            <td align="left"> {{ list }} </td>
+                            {% for name, c in candidates %}
+                                <td align="center"> {{ c.yes }} </td>
+                                <td align="center"> {{ c.no }} </td>
+                                <td align="center"> {{ c.neutral }} </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <table class="table is-centered">
+                    <thead>
+                        <tr>
+                            <th align="left"></th>
+                            {% for name, candidate in post.resultDetail|first %}
+                            <th align="center"> {{ name }}</th>
+                            {% endfor %}
+                            <th align="center"> NOTA </th>
+                            <th align="center"> Neutral </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for list, candidates in post.resultDetail %}
+                        <tr>
+                            <td align="left"> {{ list }} </td>
+                            {% for name, c in candidates %}
+                            <td align="center"> {{ c.yes }} </td>
+                            {% endfor %}
+                            <td align="center"> {{ (candidates|first).nota }} </td>
+                            <td align="center"> {{ (candidates|first).neutral }} </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+                {% endif %}
+
             </div>
             {% endfor %}
         </div>
