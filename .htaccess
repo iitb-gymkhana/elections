@@ -15,7 +15,7 @@ RewriteRule ^(.+)$ index.php [QSA,L]
     Allow from all
 </Files>
 
-<FilesMatch ".*\.(css|js)$">
+<FilesMatch ".*\.(css|js|ico)$">
     Order Allow,Deny
     Allow from all
 </FilesMatch>
