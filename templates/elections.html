@@ -16,6 +16,16 @@
                     </p>
                     {% for election in elections %}
                     <a class="panel-block" href="safe/admin/{{ election.getId() }}">
+                        {% if election.getSuspended() %}
+                        <span class="panel-icon"> &#10006; </span>
+                        {% elseif election.getActive() %}
+                        <span class="panel-icon"> &#10070; </span>
+                        {% elseif election.getEnded() %}
+                        <span class="panel-icon"> &#10004; </span>
+                        {% else %}
+                        <span class="panel-icon"> &#10033; </span>
+                        {% endif %}
+
                         {{ election.getName() }}
                     </a>
                     {% endfor %}
