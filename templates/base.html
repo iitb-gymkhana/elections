@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %} | Elections | Gymkhana IITB </title>
+
+        <link rel="stylesheet" href="/css/bulma.min.css">
+        <script src="/js/script.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% block head %} {% endblock %}
+    </head>
+    <body>
+
+        <section class="hero is-info">
+            <div class="hero-body">
+                <div class="container">
+                <h1 class="title">
+                    <a href="/elections" style="color: white">Elections</a>
+                </h1>
+                <h2 class="subtitle">
+                    Gymkhana IIT Bombay
+                </h2>
+                </div>
+            </div>
+        </section>
+
+        <div id="content">{% block content %}{% endblock %}</div>
+
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <p>
+                    &copy; Copyright 2020 <a href="https://gymkhana.iitb.ac.in">Gymkhana IIT Bombay</a>.
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<div class="field">
+    <label class="label">Name</label>
+    <div class="control">
+        <input class="input" name="name" type="text" placeholder="e.g. General Secretary Technical Affairs" value="{{ post.getName() }}" required>
+    </div>
+</div>
+
+<div class="field">
+    <label class="label">Number</label>
+    <div class="control">
+        <input class="input" name="number" type="number" placeholder="Number of candidates to elect" value="{{ post.getNumber() }}" min="1" required>
+    </div>
+</div>
+
+<div class="field">
+    <label class="label">Electorate Type</label>
+    <div class="control">
+        <label class="radio">
+            <input type="radio" name="type" required {{ post.getType() == "ALL" ? "checked" : "" }} value="ALL"> ALL
+        </label>
+        <label class="radio">
+            <input type="radio" name="type" {{ post.getType() == "UG" ? "checked" : "" }} value="UG"> UG
+        </label>
+        <label class="radio">
+            <input type="radio" name="type" {{ post.getType() == "PG" ? "checked" : "" }} value="PG"> PG
+        </label>
+    </div>
+</div>
+
+<input hidden name="class" value="post">
+<input hidden name="id" value="{{ post.getId() }}">
+
+<input type="submit" class="button is-link is-outlined is-fullwidth is-success" value="Submit" />

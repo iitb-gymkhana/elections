@@ -1,0 +1,11 @@
+{
+    "require": {
+        "doctrine/orm": "^2.6.2",
+        "symfony/yaml": "2.*",
+        "twig/twig": "^3.0",
+        "bramus/router": "~1.4"
+    },
+    "autoload": {
+        "psr-0": {"": "src/"}
+    }
+}

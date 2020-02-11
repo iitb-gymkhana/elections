@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}{{ election.getName() }}{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <form class="box" method="POST">
+                    <div class="field has-text-centered">
+                        <h2 class="subtitle">Election</h2>
+                    </div>
+                    {% include "form-election.html" %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                {% for post in posts %}
+                <div class="box ">
+                    {{ post.getName() }}
+                    <button data-target="edit-post-{{ post.getId() }}" class="modal-button button is-link is-outlined is-fullwidth">
+                        Edit Post
+                    </button>
+                </div>
+                {% endfor %}
+
+                <div class="box ">
+                    <button data-target="create-post" class="modal-button button is-link is-outlined is-fullwidth">
+                        Create new post
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% for post in posts %}
+<div class="modal" id="edit-post-{{ post.getId() }}">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <form class="box" method="POST">
+            <div class="field has-text-centered">
+                <h2 class="subtitle">Edit Post</h2>
+            </div>
+            {% include "form-post.html" %}
+        </form>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+{% endfor %}
+
+<div class="modal" id="create-post">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <form class="box" method="POST">
+            <div class="field has-text-centered">
+                <h2 class="subtitle">Create Post</h2>
+            </div>
+            {% include "form-post.html" %}
+        </form>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+{% endblock %}

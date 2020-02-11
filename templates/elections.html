@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <nav class="panel is-info">
+                    <p class="panel-heading">
+                        Commissioned by you
+                    </p>
+                    {% for election in elections %}
+                    <a class="panel-block" href="/elections/{{ election.getId() }}">
+                        {{ election.getName() }}
+                    </a>
+                    {% endfor %}
+                    <div class="panel-block">
+                        <a data-target="create-election" class="modal-button button is-link is-outlined is-fullwidth">
+                            Create new election
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal" id="create-election">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <form class="box" method="POST">
+            <div class="field has-text-centered">
+                <h2 class="subtitle">Create Election</h2>
+            </div>
+            {% include "form-election.html" %}
+        </form>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+{% endblock %}

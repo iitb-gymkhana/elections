@@ -1,0 +1,10 @@
+<div class="field">
+    <label class="label">Name</label>
+    <div class="control">
+      <input class="input" name="name" type="text" placeholder="e.g. Insitute General Elections" value="{{ election.getName() }}" required>
+    </div>
+</div>
+
+<input hidden name="class" value="election">
+
+<input type="submit" class="button is-link is-outlined is-fullwidth is-success" value="Submit" />
