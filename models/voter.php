@@ -23,6 +23,10 @@ class ElectionVoterList
      * @ORM\JoinColumn(name="election_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $election;
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $boothIPs;
 
     /**
      * Get the value of id
@@ -68,6 +72,27 @@ class ElectionVoterList
     public function setElection($election)
     {
         $this->election = $election;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of boothIPs
+     */
+    public function getBoothIPs()
+    {
+        return $this->boothIPs;
+    }
+
+    /**
+     * Set the value of boothIPs
+     *
+     * @return  self
+     */
+    public function setBoothIPs($boothIPs)
+    {
+        $this->boothIPs = $boothIPs;
 
         return $this;
     }

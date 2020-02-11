@@ -10,6 +10,9 @@ if (!$USER_SUPERADMIN && $election->getCreator() !== $USER_ROLL) dieNoElection()
 
 // Handle updating
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Check if modification allowed
+    $canEdit = !$election->getActive() && !$election->getEnded();
+
     if ($_POST['class'] === 'election') {
         if (!$election->getEnded()) {
             // Start election
@@ -39,15 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $entityManager->persist($election);
-    } else {
-        // Check if modification allowed
-        if ($election->getActive() || $election->getEnded()) {
-            echo "Contact super-admins for election modification now!";
-            die();
-        }
     }
 
-    if ($_POST['class'] === 'post') {
+    else if ($_POST['class'] === 'post' && $canEdit) {
         if (empty($_POST['id'])) {
             $post = new ElectionPost();
         } else {
@@ -68,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if ($_POST['class'] === 'candidate') {
+    else if ($_POST['class'] === 'candidate' && $canEdit) {
         if (empty($_POST['id'])) {
             $candidate = new ElectionCandidate();
         } else {
@@ -93,8 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if ($_POST['class'] === 'voterlist') {
-        if (empty($_POST['id'])) {
+    else if ($_POST['class'] === 'voterlist') {
+        if (empty($_POST['id']) && $canEdit) {
             $voterList = new ElectionVoterList();
 
             $voters = preg_split("/\r\n|\n|\r/", $_POST['voters']);
@@ -116,10 +113,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Check if deleting
-        if (!empty($_POST['delete'])) {
+        if (!empty($_POST['delete']) && $canEdit) {
             $entityManager->remove($voterList);
         } else {
             $voterList->setName($_POST['name']);
+            $voterList->setBoothIPs($_POST['booths']);
             $voterList->setElection($election);
             $entityManager->persist($voterList);
         }

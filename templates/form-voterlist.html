@@ -5,6 +5,13 @@
     </div>
 </div>
 
+<div class="field">
+    <label class="label">Booth IPs</label>
+    <div class="control">
+        <input class="input" name="booths" type="text" placeholder="10.105.177.1 10.105.177.5" value="{{ voterList.getBoothIPs() }}">
+    </div>
+</div>
+
 {% if not voterList %}
 <div class="field">
     <label class="label">Roll Number List</label>
@@ -23,6 +30,9 @@
     {% if voterList %}
     <a href="safe/voterlist/{{ voterList.getId() }}" class="button is-link is-outlined is-fullwidth is-primary"
        download="{{ voterList.getName() }}.csv"> Download </a>
+
+    {% if canEdit %}
     <input type="submit" class="button is-link is-outlined is-fullwidth is-danger" name="delete" value="Delete" />
+    {% endif %}
     {% endif %}
 </div>
