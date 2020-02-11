@@ -4,6 +4,8 @@
 
 {% block content %}
 
+{% set canEdit = true %}
+
 <section class="section">
     <div class="container">
         <div class="columns is-centered">
@@ -13,7 +15,7 @@
                         Commissioned by you
                     </p>
                     {% for election in elections %}
-                    <a class="panel-block" href="elections/{{ election.getId() }}">
+                    <a class="panel-block" href="admin/{{ election.getId() }}">
                         {{ election.getName() }}
                     </a>
                     {% endfor %}

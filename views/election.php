@@ -1,15 +1,15 @@
 <?php
 require_once "bootstrap.php";
+include "check-admin.php";
 
 // Get election
 $election = $entityManager->find('Election', $electionId);
 if ($election === null) { echo "No such election"; die(); }
+if (!$USER_SUPERADMIN && $election->getCreator() !== $USER_ROLL) dieNoElection();
 
 // Handle updating
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_POST['class'] === 'election') {
-        $election->setName($_POST['name']);
-
         // Start election
         if (!empty($_POST['start']) && $election->getActive() === false && $election->getEnded() === false) {
             $election->setActive(true);
@@ -20,7 +20,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $election->setEnded(true);
         }
 
+        // Update
+        if (isset($_POST['name'])) {
+            $election->setName($_POST['name']);
+        }
+
         $entityManager->persist($election);
+    } else {
+        // Check if modification allowed
+        if ($election->getActive() || $election->getEnded()) {
+            echo "Contact super-admins for election modification now!";
+            die();
+        }
     }
 
     if ($_POST['class'] === 'post') {

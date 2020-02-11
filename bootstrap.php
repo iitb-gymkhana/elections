@@ -45,3 +45,9 @@ $twig = new \Twig\Environment($loader, [
 
 // User roll number
 $USER_ROLL = $_SERVER['OIDC_CLAIM_employeeNumber'];
+$USER_SUPERADMIN = in_array($USER_ROLL, array(
+    '160010005',
+));
+$USER_ADMIN = $USER_SUPERADMIN || in_array($USER_ROLL, array(
+
+));

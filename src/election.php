@@ -40,6 +40,11 @@ class Election
      */
     protected $voterLists;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $creator;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -113,6 +118,26 @@ class Election
     public function setEnded($ended)
     {
         $this->ended = $ended;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of creator
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * Set the value of creator
+     *
+     * @return  self
+     */
+    public function setCreator($creator)
+    {
+        $this->creator = $creator;
 
         return $this;
     }
