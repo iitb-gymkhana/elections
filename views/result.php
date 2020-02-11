@@ -25,9 +25,11 @@ foreach ($election->getPosts() as $post) {
         $candidate->resultNo = $nqb->setParameter('vote', 'no')->getQuery()->getSingleScalarResult();
         $candidate->resultNeutral = $nqb->setParameter('vote', 'neutral')->getQuery()->getSingleScalarResult();
         $post->resultNOTA += $nqb->setParameter('vote', 'nota')->getQuery()->getSingleScalarResult();
+        $post->resultNeutral += $nqb->setParameter('vote', 'neutral')->getQuery()->getSingleScalarResult();
     }
 
     $post->resultNOTA /= $post->getCandidates()->count();
+    $post->resultNeutral /= $post->getCandidates()->count();
 }
 
 echo $twig->render('result.html', ['election' => $election ]);

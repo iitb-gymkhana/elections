@@ -68,8 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     echo "Didn't vote for " . $post->getName(); die();
                 }
 
-                if ($vote === 'nota') {
-                    $evote->setVote('nota');
+                if ($vote === 'nota' || $vote === 'neutral') {
+                    $evote->setVote($vote);
                     $entityManager->persist($evote);
                 } else if ($vote === strval($candidate->getId())) {
                     $evote->setVote('yes');
