@@ -36,7 +36,7 @@ foreach ($election->getPosts() as $post) {
             $vote = $row[0];
 
             // Get voter list for detailed result
-            if ($vList = $vote->getVoterListName()) {
+            if (($vList = $vote->getVoterListName()) && $USER_SUPERADMIN) {
                 if (!array_key_exists($vList, $detail)) {
                     $detail[$vList] = $structure;
                 }
@@ -67,8 +67,10 @@ foreach ($election->getPosts() as $post) {
         }
     }
 
-    ksort($detail, SORT_NATURAL);
-    $post->resultDetail = $detail;
+    if ($USER_SUPERADMIN) {
+        ksort($detail, SORT_NATURAL);
+        $post->resultDetail = $detail;
+    }
 
     $count = $post->getCandidates()->count();
     $post->resultNOTA /= $count;

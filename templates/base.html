@@ -31,7 +31,10 @@
         <footer class="footer">
             <div class="content has-text-centered">
                 <p>
-                    &copy; Copyright 2020 <a href="https://gymkhana.iitb.ac.in">Gymkhana IIT Bombay</a>.
+                    &copy; Copyright 2020 <a href="https://gymkhana.iitb.ac.in">IIT Bombay</a> <br/>
+                    <a href="safe/admin">Admin Panel</a>
+
+                    {% if userRoll %} &bull; <a href="{{ logoutHome }}"> Logout </a> {% endif %}
                 </p>
             </div>
         </footer>

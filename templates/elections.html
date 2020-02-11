@@ -35,6 +35,13 @@
                         </a>
                     </div>
                 </nav>
+
+                <nav class="pagination is-small is-rounded" role="navigation" aria-label="pagination">
+                    <a class="pagination-previous" href="safe/admin?p={{ prev }}"
+                        {% if prev is null %} disabled {% endif %}> Previous </a>
+                    <a class="pagination-next" href="safe/admin?p={{ next }}"
+                        {% if next is null %} disabled {% endif %}> Next page </a>
+                </nav>
             </div>
         </div>
     </div>
