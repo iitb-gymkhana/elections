@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Requires voting key
-    if ($election->getRequireCode() && $votingKey !== $voter->getCode()) {
+    if ($voter->getVoterList()->getRequireCode() && $votingKey !== $voter->getCode()) {
         echo "Illegal voting key!"; die;
     }
 
@@ -122,7 +122,7 @@ if ($election === null) {
 }
 
 // Voting key prompt
-if ($election->getRequireCode() && $votingKey !== $voter->getCode()) {
+if ($voter->getVoterList()->getRequireCode() && $votingKey !== $voter->getCode()) {
     echo $twig->render('vote-key.html', [
         'election' => $election,
         'name' => $_SERVER['OIDC_CLAIM_name'],

@@ -27,6 +27,10 @@ class ElectionVoterList
      * @ORM\Column(type="string")
      */
     protected $boothIPs;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $requireCode;
 
     /**
      * Get the value of id
@@ -93,6 +97,26 @@ class ElectionVoterList
     public function setBoothIPs($boothIPs)
     {
         $this->boothIPs = $boothIPs;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of requireCode
+     */
+    public function getRequireCode()
+    {
+        return $this->requireCode;
+    }
+
+    /**
+     * Set the value of requireCode
+     *
+     * @return  self
+     */
+    public function setRequireCode($requireCode)
+    {
+        $this->requireCode = $requireCode;
 
         return $this;
     }

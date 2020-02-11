@@ -6,14 +6,6 @@
     </div>
 </div>
 
-<div class="field">
-  <label class="checkbox">
-      <input type="checkbox" name="require_code"
-        {{ election.getRequireCode() ? "checked" : "" }} {% if not canEdit %} disabled {% endif %}>
-      Require voting key
-  </label>
-</div>
-
 {% if election %}
 {% if election.getSuspended() %}
 <div class="notification is-warning"> Suspended </div>

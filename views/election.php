@@ -38,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Update
         if (isset($_POST['name'])) {
             $election->setName($_POST['name']);
-            $election->setRequireCode(isset($_POST['require_code']));
         }
 
         $entityManager->persist($election);
@@ -127,6 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             if ($canEdit) {
                 $voterList->setName($_POST['name']);
+                $voterList->setRequireCode(isset($_POST['require_code']));
             }
 
             $voterList->setBoothIPs($_POST['booths']);

@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $election->setEnded(false);
     $election->setSuspended(false);
     $election->setCreator($USER_ROLL);
-    $election->setRequireCode(isset($_POST['require_code']));
 
     $entityManager->persist($election);
     $entityManager->flush();
