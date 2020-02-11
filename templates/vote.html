@@ -7,7 +7,7 @@
 {% for election in elections %}
 
 <section class="section">
-    <div class="container">
+    <form class="container" method="POST">
         <div class="has-text-centered">
             <h2 class="title is-4">{{ election.getName() }}</h2>
 
@@ -24,19 +24,19 @@
 
                         {% if post.isYNN() %}
                         <label class="radio">
-                            <input type="radio" name="{{ candidate.getId() }}" required value="yes"> Yes
+                            <input type="radio" name="c-{{ candidate.getId() }}" required value="yes"> Yes
                         </label>
                         <label class="radio">
-                            <input type="radio" name="{{ candidate.getId() }}" required value="no"> No
+                            <input type="radio" name="c-{{ candidate.getId() }}" required value="no"> No
                         </label>
                         <br />
                         <label class="radio">
-                            <input type="radio" name="{{ candidate.getId() }}" required value="neutral"> Neutral
+                            <input type="radio" name="c-{{ candidate.getId() }}" required value="neutral"> Neutral
                         </label>
 
                         {% else %}
                         <label class="radio">
-                            <input type="radio" name="{{ post.getId() }}" required value="{{ candidate.getId() }}"> Yes
+                            <input type="radio" name="p-{{ post.getId() }}" required value="{{ candidate.getId() }}"> Yes
                         </label>
                         {% endif %}
                     </div>
@@ -46,14 +46,21 @@
                 <div class="is-centered nota-radio">
                 {% if not post.isYNN() %}
                     <label class="radio">
-                        <input type="radio" name="{{ post.getId() }}" required value="nota"> None of the above
+                        <input type="radio" name="p-{{ post.getId() }}" required value="nota"> None of the above
                     </label>
                 {% endif %}
                 </div>
             </div>
             {% endfor %}
         </div>
-    <div>
+
+        <input hidden name="id" value="{{ election.getId() }}">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <input type="submit" class="button is-link is-outlined is-fullwidth is-success" value="Cast Vote" />
+            </div>
+        </div>
+    <form>
 </section>
 
 {% endfor %}
