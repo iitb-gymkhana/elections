@@ -107,7 +107,7 @@ foreach ($voters as $v) {
 if ($election === null) {
     echo $twig->render('vote-message.html', [
         'message' => 'No elections for you to vote for right now!',
-        'redir' => '',
+        'redir' => $LOGOUT_HOME,
     ]);
     die();
 }
