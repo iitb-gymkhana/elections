@@ -50,7 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $post->setElection($election);
         } else {
             $post = $entityManager->find('ElectionPost', $_POST['id']);
-            if ($post === null) { echo "No such post"; die(); }
+            if ($post === null || $post->getElection()->getId() !== $election->getId()) {
+                echo "No such post"; die();
+            }
         }
 
         // Check if deleting
@@ -72,7 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $candidate->setPost($post);
         } else {
             $candidate = $entityManager->find('ElectionCandidate', $_POST['id']);
-            if ($candidate === null) { echo "No such candidate"; die(); }
+            if ($candidate === null || $candidate->getPost()->getElection()->getId() !== $election->getId()) {
+                echo "No such candidate"; die();
+            }
         }
 
         // Get the linked post
@@ -112,7 +116,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         } else {
             $voterList = $entityManager->find('ElectionVoterList', $_POST['id']);
-            if ($voterList === null) { echo "No such voter list"; die(); }
+            if ($voterList === null|| $voterList->getElection()->getId() !== $election->getId()) {
+                echo "No such voter list"; die();
+            }
         }
 
         // Check if deleting
