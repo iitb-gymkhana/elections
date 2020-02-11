@@ -5,6 +5,8 @@ require_once "bootstrap.php";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $election = new Election();
     $election->setName($_POST['name']);
+    $election->setActive(false);
+    $election->setEnded(false);
 
     $entityManager->persist($election);
     $entityManager->flush();

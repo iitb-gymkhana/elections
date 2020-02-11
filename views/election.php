@@ -9,12 +9,18 @@ if ($election === null) { echo "No such election"; die(); }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_POST['class'] === 'election') {
         $election->setName($_POST['name']);
-        if (!empty($_POST['delete'])) {
-            $entityManager->remove($election);
-            $link = '/elections';
-        } else {
-            $entityManager->persist($election);
+
+        // Start election
+        if (!empty($_POST['start']) && $election->getActive() === false && $election->getEnded() === false) {
+            $election->setActive(true);
         }
+        // End election
+        if (!empty($_POST['end']) && $election->getActive() === true && $election->getEnded() === false) {
+            $election->setActive(false);
+            $election->setEnded(true);
+        }
+
+        $entityManager->persist($election);
     }
 
     if ($_POST['class'] === 'post') {

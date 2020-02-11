@@ -21,6 +21,16 @@ class Election
     protected $name;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $active;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $ended;
+
+    /**
      * @ORM\OneToMany(targetEntity="ElectionPost", mappedBy="election")
      */
     protected $posts;
@@ -65,5 +75,45 @@ class Election
     public function getVoterLists()
     {
         return $this->voterLists;
+    }
+
+    /**
+     * Get the value of active
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set the value of active
+     *
+     * @return  self
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of ended
+     */
+    public function getEnded()
+    {
+        return $this->ended;
+    }
+
+    /**
+     * Set the value of ended
+     *
+     * @return  self
+     */
+    public function setEnded($ended)
+    {
+        $this->ended = $ended;
+
+        return $this;
     }
 }
