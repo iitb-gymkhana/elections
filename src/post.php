@@ -148,4 +148,15 @@ class ElectionPost
     public function isYNN() {
         return ($this->number > 1) || ($this->candidates->count() == 1);
     }
+
+    /**
+     * Check if current user can vote
+     */
+    public function canVote() {
+        if ($this->type === 'ALL') {
+            return true;
+        }
+
+        return $this->type === strtoupper($_SERVER['OIDC_CLAIM_employeeType']);
+    }
 }

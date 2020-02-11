@@ -1,21 +1,24 @@
 <div class="field">
     <label class="label">Name</label>
     <div class="control">
-        <input class="input" name="name" type="text" placeholder="e.g. Jack Sparrow" value="{{ candidate.getName() }}" required>
+        <input class="input" name="name" type="text" placeholder="e.g. Jack Sparrow" value="{{ candidate.getName() }}"
+            required {% if not canEdit %} disabled {% endif %}>
     </div>
 </div>
 
 <div class="field">
     <label class="label">Photo URL</label>
     <div class="control">
-        <input class="input" name="photo" type="url" placeholder="e.g. https://..." value="{{ candidate.getPhoto() }}">
+        <input class="input" name="photo" type="url" placeholder="e.g. https://..." value="{{ candidate.getPhoto() }}"
+            {% if not canEdit %} disabled {% endif %}>
     </div>
 </div>
 
 <div class="field">
     <label class="label">Manifesto URL</label>
     <div class="control">
-        <input class="input" name="manifesto" type="url" placeholder="e.g. https://..." value="{{ candidate.getManifesto() }}">
+        <input class="input" name="manifesto" type="url" placeholder="e.g. https://..." value="{{ candidate.getManifesto() }}"
+            {% if not canEdit %} disabled {% endif %}>
     </div>
 </div>
 
@@ -23,6 +26,7 @@
 <input hidden name="id" value="{{ candidate.getId() }}">
 <input hidden name="postid" value="{{ post.getId() }}">
 
+{% if canEdit %}
 <div class="buttons">
     <input type="submit" class="button is-link is-outlined is-fullwidth is-success" value="Submit" />
 
@@ -30,3 +34,4 @@
     <input type="submit" class="button is-link is-outlined is-fullwidth is-danger" name="delete" value="Delete" />
     {% endif %}
 </div>
+{% endif %}

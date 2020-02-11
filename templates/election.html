@@ -4,6 +4,8 @@
 
 {% block content %}
 
+{% set canEdit = (not election.getActive()) and (not election.getEnded()) %}
+
 <section class="section">
     <div class="container">
         <div class="columns is-centered">
@@ -34,9 +36,11 @@
                         {% endfor %}
                     </nav>
 
+                    {% if canEdit %}
                     <button data-target="create-voterlist" class="modal-button button is-danger is-outlined is-fullwidth">
                         Upload List
                     </button>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -60,9 +64,11 @@
                     </nav>
 
                     <div class="buttons">
+                        {% if canEdit %}
                         <button data-target="create-candidate-{{ post.getId() }}" class="modal-button button is-success is-outlined is-fullwidth">
                             Add Candidate
                         </button>
+                        {% endif %}
                         <button data-target="edit-post-{{ post.getId() }}" class="modal-button button is-link is-outlined is-fullwidth">
                             Edit Post
                         </button>
@@ -70,11 +76,13 @@
                 </div>
                 {% endfor %}
 
+                {% if canEdit %}
                 <div class="box ">
                     <button data-target="create-post" class="modal-button button is-link is-outlined is-fullwidth">
                         Create Post
                     </button>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>

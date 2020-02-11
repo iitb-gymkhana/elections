@@ -1,17 +1,20 @@
 <div class="field">
     <label class="label">Name</label>
     <div class="control">
-      <input class="input" name="name" type="text" placeholder="e.g. Insitute General Elections" value="{{ election.getName() }}" required>
+      <input class="input" name="name" type="text" placeholder="e.g. Insitute General Elections" value="{{ election.getName() }}"
+             required {% if not canEdit %} disabled {% endif %}>
     </div>
 </div>
 
 <input hidden name="class" value="election">
 
 <div class="buttons">
+{% if canEdit %}
 <input type="submit" class="button is-link is-outlined is-fullwidth is-success" value="Submit" />
+{% endif %}
 
 {% if election %}
-{% if (not election.getActive()) and (not election.getEnded()) %}
+{% if canEdit %}
 <input type="submit" class="button is-link is-outlined is-fullwidth is-info" name="start" value="Start Election" />
 {% endif %}
 

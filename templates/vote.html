@@ -10,6 +10,7 @@
             <h2 class="title is-4">{{ election.getName() }}</h2>
 
             {% for post in election.getPosts() %}
+            {% if post.canVote() %}
             <div class="box is-shadowless">
                 <h2 class="subtitle is-5">{{ post.getName() }}</h2>
                 <div class="columns is-centered">
@@ -49,6 +50,7 @@
                 {% endif %}
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
         </div>
 

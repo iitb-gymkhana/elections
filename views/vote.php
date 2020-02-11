@@ -33,6 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $entityManager->persist($voter);
 
     foreach ($election->getPosts() as $post) {
+        if (!$post->canVote()) {
+            continue;
+        }
+
         foreach ($post->getCandidates() as $candidate) {
             // Create vote object
             $evote = new ElectionVote();
