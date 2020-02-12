@@ -36,7 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     die();
 }
 
+// Get JSON of voterlists
+$q = $entityManager->createQueryBuilder()
+        ->select('evl.name, evl.id')
+        ->from('ElectionVoterList', 'evl')
+        ->where('IDENTITY(evl.election) = ' . $election->getId())
+        ->getQuery();
+$vlJson = json_encode($q->getResult());
+
 echo $twig->render('election.html', [
     'election' => $election,
     'superAdmin' => $USER_SUPERADMIN,
+    'allVoterListsJson' => $vlJson,
 ]);

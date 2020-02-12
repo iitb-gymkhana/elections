@@ -82,3 +82,29 @@ function voterlistPost() {
         });
     });
 }
+
+// Check existing voter list
+function checkEVL(event) {
+    if (!voterLists) return;
+
+    // Target name
+    const name = event.target.value;
+
+    // Hint element
+    const elem = document.getElementById('evl-hint');
+    const eid = document.getElementById('evl-eid');
+
+    // Check all
+    for (const vl of voterLists) {
+        if (vl.name.toUpperCase() == name.toUpperCase()) {
+            elem.classList.add('is-success');
+            elem.innerHTML = 'Voters will be added to existing list';
+            eid.value = vl.id;
+            return;
+        }
+    }
+
+    eid.value = '';
+    elem.classList.remove('is-success');
+    elem.innerHTML = 'Use an existing name to add more voters';
+}

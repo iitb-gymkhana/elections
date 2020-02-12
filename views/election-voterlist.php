@@ -8,11 +8,12 @@ function echoError($voterRoll, $error) {
 }
 
 // Create or get
-if (empty($_POST['id'])) {
+$isNew = empty($_POST['id']) && empty($_POST['eid']);
+if ($isNew) {
     $voterList = new ElectionVoterList();
     $voterList->setElection($election);
 } else {
-    $voterList = $entityManager->find('ElectionVoterList', $_POST['id']);
+    $voterList = $entityManager->find('ElectionVoterList', $_POST['id'] ?? $_POST['eid']);
     if ($voterList === null|| $voterList->getElection()->getId() !== $election->getId()) {
         echo "No such voter list"; die();
     }
@@ -22,7 +23,7 @@ if (empty($_POST['id'])) {
 if (!empty($_POST['delete']) && $canEdit) {
     $entityManager->remove($voterList);
 } else {
-    if ($canEdit || empty($_POST['id'])) {
+    if ($canEdit || $isNew) {
         $voterList->setName($_POST['name']);
     }
 
