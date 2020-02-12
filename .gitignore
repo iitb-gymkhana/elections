@@ -1,4 +1,5 @@
 vendor
 db.sqlite
 phpliteadmin*
-cache
+.cache
+.cache_twig
