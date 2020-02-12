@@ -58,6 +58,27 @@ function logoutElectron(event) {
 }
 
 function voterlistPost() {
-    document.getElementById('create-voterlist-form').style.visibility = 'hidden';
-    document.getElementById('create-vl-result').style.display = 'block';
+    const elem = document.getElementById('vl-create-submit');
+    elem.classList.add('is-loading');
+    elem.classList.add('is-danger');
+    elem.classList.remove('is-success');
+    elem.classList.remove('is-outlined');
+    elem.addEventListener('click', function(ev) {
+        ev.preventDefault();
+    });
+
+    const iframe = document.getElementById('create-vl-result');
+    iframe.style.display = 'block';
+    iframe.addEventListener("load", function() {
+        const elem = document.getElementById('vl-create-submit');
+        elem.classList.remove('is-loading');
+        elem.classList.remove('is-danger');
+        elem.classList.add('is-success');
+
+        elem.innerHTML = 'Continue'
+        elem.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            window.location = window.location.href;
+        });
+    });
 }

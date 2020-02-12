@@ -36,7 +36,8 @@
 <input hidden name="id" value="{{ voterList.getId() }}">
 
 <div class="buttons">
-    <input type="submit" class="button is-link is-outlined is-fullwidth is-success" value="Submit" />
+    <button type="submit" class="button is-outlined is-fullwidth is-success"
+        {% if not voterList %} id="vl-create-submit" {% endif %}> Submit </button>
 
     {% if voterList %}
     <a href="safe/voterlist/{{ voterList.getId() }}" class="button is-link is-outlined is-fullwidth is-primary"
