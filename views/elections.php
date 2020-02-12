@@ -29,6 +29,7 @@ $page = intval($queries['p'] ?? 0);
 $pageSize = 25;
 $qb = $entityManager->createQueryBuilder()
         ->select('e')
+        ->orderBy('e.id', 'DESC')
         ->from('Election', 'e')
         ->setFirstResult($page * $pageSize)
         ->setMaxResults($pageSize);
