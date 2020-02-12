@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html moznomarginboxes mozdisallowselectionprint>
     <head>
         <title>{% block title %}{% endblock %} | Elections | Gymkhana IITB </title>
         <base href="{{ baseUrl }}" />
@@ -33,7 +33,7 @@
 
         <div id="content">{% block content %}{% endblock %}</div>
 
-        <footer class="footer">
+        <footer class="footer no-print">
             <div class="content has-text-centered">
                 <p>
                     {% if userRoll %}

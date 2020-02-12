@@ -39,3 +39,14 @@ img.candidate {
     display: none;
     z-index: 10;
 }
+
+@page {
+    size: auto;
+    margin: 0;
+}
+
+@media print {
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
