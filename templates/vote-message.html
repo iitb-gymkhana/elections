@@ -22,7 +22,9 @@
             document.getElementById('progress').value = time;
             if (time > 100) {
                 clearInterval(interval);
-                logoutElectron()
+                if ('{{ redir }}'.indexOf('logout') !== -1) {
+                    logoutElectron();
+                }
                 window.location.href = '{{ redir }}';
             }
         }, 15);
