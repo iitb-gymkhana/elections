@@ -28,7 +28,8 @@
 
 {% if election %}
 {% if canEdit %}
-<input type="submit" class="button is-link is-outlined is-fullwidth is-info" name="start" value="Start Election" />
+<input type="submit" class="button is-link is-outlined is-fullwidth is-info" name="start"
+       value="Start Election" onclick="return confirm('Are you sure you want to start this election?')" />
 {% endif %}
 
 {% if election.getActive() %}
@@ -38,7 +39,8 @@
 <input type="submit" class="button is-link is-outlined is-fullwidth is-success" name="suspend" value="Resume Election" />
 {% endif %}
 
-<input type="submit" class="button is-link is-outlined is-fullwidth is-danger" name="end" value="End Election" />
+<input type="submit" class="button is-link is-outlined is-fullwidth is-danger" name="end"
+       value="End Election" onclick="return confirm('Are you sure you want to end this election?')" />
 {% endif %}
 
 {% if election.getEnded() or superAdmin %}
