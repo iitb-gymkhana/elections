@@ -29,15 +29,43 @@ if (empty($_POST['id'])) {
         ->getQuery();
     $added = array_column($q->getResult(), 'rollNo');
 
+    // Start LDAP connection
+    if ($LDAP_SERVER !== null) {
+        $ds = ldap_connect($LDAP_SERVER) or die("Unable to connect to LDAP server. Please try again later.");
+    }
+
     foreach ($voters as $voterRoll) {
         if (empty($voterRoll)) continue;
 
         // Sanitize
         $voterRoll = strtoupper(preg_replace( '/[\W]/', '', $voterRoll));
 
+        // Might get a CN from LDAP
+        $cn = '';
+
+        // Verify from LDAP
+        if (isset($LDAP_SERVER)) {
+            // Get LDAP object
+            $sr = ldap_search($ds, "dc=iitb,dc=ac,dc=in", "(employeeNumber=$voterRoll)", array("cn"));
+            $entries = ldap_get_entries($ds, $sr);
+
+            // Check if found in LDAP
+            if ($entries['count'] <= 0) {
+                echoError($voterRoll, 'NOT_FOUND_LDAP');
+                $HAS_ERRORS = true;
+                continue;
+            }
+
+            // Get CN from LDAP object
+            $cn = $entries[0]["cn"][0];
+
+            // Give LDAP some time
+            usleep(5 * 1000);
+        }
+
         // Check if existing
         if (in_array($voterRoll, $added)) {
-            echoError($voterRoll, 'Duplicate');
+            echoError("$voterRoll ($cn)", 'DUPLICATE');
             $HAS_ERRORS = true;
             continue;
         }
@@ -55,7 +83,7 @@ if (empty($_POST['id'])) {
         array_push($added, $voterRoll);
 
         // Show that we are all okay
-        echo "<div> $voterRoll - OK </div>";
+        echo "<div> $voterRoll ($cn) - OK </div>";
         flush(); ob_flush();
     }
 

@@ -17,10 +17,14 @@ $BASE_URL = '/election/';
 $FULL_URL = 'https://gymkhana.iitb.ac.in' . $BASE_URL;
 $SSO_BASE = 'https://sso-uat.iitb.ac.in';
 
+// List of roll numbers who are superadmin
 $SUPERADMIN_LIST = array(
     'misc.mlc', '160010005',
 );
 
+// List of roll numbers who are admin
 $ADMIN_LIST = array(
 
 );
+
+$LDAP_SERVER = 'ldap.iitb.ac.in';
