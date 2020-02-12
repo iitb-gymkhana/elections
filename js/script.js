@@ -56,3 +56,8 @@ function logoutElectron(event) {
 
     return false;
 }
+
+function voterlistPost() {
+    document.getElementById('create-voterlist-form').style.visibility = 'hidden';
+    document.getElementById('create-vl-result').style.display = 'block';
+}

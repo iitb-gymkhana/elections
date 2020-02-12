@@ -149,7 +149,11 @@
 <div class="modal" id="create-voterlist">
     <div class="modal-background"></div>
     <div class="modal-content">
-        <form class="box" method="POST">
+        <iframe class="box" id="create-vl-result" name="create-vl-result"></iframe>
+
+        <form class="box" method="POST" target="create-vl-result"
+              onsubmit="voterlistPost()" id="create-voterlist-form">
+
             <div class="field has-text-centered">
                 <h2 class="subtitle">Upload Voter List</h2>
             </div>
