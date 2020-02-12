@@ -7,16 +7,42 @@ function echoError($voterRoll, $error) {
     flush(); ob_flush();
 }
 
+// Create or get
 if (empty($_POST['id'])) {
     $voterList = new ElectionVoterList();
     $voterList->setElection($election);
+} else {
+    $voterList = $entityManager->find('ElectionVoterList', $_POST['id']);
+    if ($voterList === null|| $voterList->getElection()->getId() !== $election->getId()) {
+        echo "No such voter list"; die();
+    }
+}
 
+// Check if deleting
+if (!empty($_POST['delete']) && $canEdit) {
+    $entityManager->remove($voterList);
+} else {
+    if ($canEdit || empty($_POST['id'])) {
+        $voterList->setName($_POST['name']);
+    }
+
+    $voterList->setRequireCode(isset($_POST['require_code']));
+    $voterList->setBoothIPs($_POST['booths']);
+    $entityManager->persist($voterList);
+}
+
+if (empty($_POST['id'])) {
+    // Flush voterlist
+    $entityManager->flush();
+
+    // Get voters
     $voters = preg_split("/\r\n|\n|\r/", $_POST['voters']);
 
     // Stream content
     ignore_user_abort(true);
     set_time_limit(0);
 
+    // Set initial content
     header('Content-type: text/html; charset=utf-8');
     echo 'Adding voters list ... <br/>';
     flush(); ob_flush();
@@ -34,7 +60,9 @@ if (empty($_POST['id'])) {
         $ds = ldap_connect($LDAP_SERVER) or die("Unable to connect to LDAP server. Please try again later.");
     }
 
-    foreach ($voters as $voterRoll) {
+    // Insert in batches
+    $batchSize = 20;
+    foreach ($voters as $i => $voterRoll) {
         if (empty($voterRoll)) continue;
 
         // Sanitize
@@ -85,30 +113,16 @@ if (empty($_POST['id'])) {
         // Show that we are all okay
         echo "<div> $voterRoll ($cn) - OK </div>";
         flush(); ob_flush();
+
+        // Flush to db
+        if (($i % $batchSize) == 0) {
+            $entityManager->flush();
+            $entityManager->clear('ElectionVoter');
+        }
     }
 
-} else {
-    $voterList = $entityManager->find('ElectionVoterList', $_POST['id']);
-    if ($voterList === null|| $voterList->getElection()->getId() !== $election->getId()) {
-        echo "No such voter list"; die();
-    }
-}
-
-// Check if deleting
-if (!empty($_POST['delete']) && $canEdit) {
-    $entityManager->remove($voterList);
-} else {
-    if ($canEdit || empty($_POST['id'])) {
-        $voterList->setName($_POST['name']);
-    }
-
-    $voterList->setRequireCode(isset($_POST['require_code']));
-    $voterList->setBoothIPs($_POST['booths']);
-    $entityManager->persist($voterList);
-}
-
-if (empty($_POST['id'])) {
     $entityManager->flush();
+
     if ($HAS_ERRORS === false) {
         echo '<h3> All voters added successfully! </h3>';
     } else {
