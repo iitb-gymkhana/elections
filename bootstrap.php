@@ -19,8 +19,13 @@ if ($isDevMode) {
     error_reporting(E_ALL);
 }
 
+$cacheDir = dirname(__FILE__).'/cache';
+if (!is_dir($cacheDir)) {
+    mkdir($cacheDir);
+}
+
 $cache = new \Doctrine\Common\Cache\ApcuCache();
-$config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/models"), $isDevMode, null, $cache, false);
+$config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/models"), $isDevMode, $cacheDir, $cache, false);
 
 // obtaining the entity manager
 $entityManager = EntityManager::create($conn, $config);

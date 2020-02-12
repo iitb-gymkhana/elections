@@ -36,3 +36,9 @@ Perform migrations with PHP CLI
 ```bash
 vendor/bin/doctrine orm:schema-tool:update --dump-sql
 ```
+
+## Proxy cache generation
+Use the following command to generate proxy cache
+```
+vendor/bin/doctrine orm:generate-proxies
+```
