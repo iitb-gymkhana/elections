@@ -19,7 +19,7 @@ if ($isDevMode) {
     error_reporting(E_ALL);
 }
 
-$cacheDir = dirname(__FILE__).'/cache';
+$cacheDir = dirname(__FILE__).'/.cache';
 if (!is_dir($cacheDir)) {
     mkdir($cacheDir);
 }
@@ -34,7 +34,7 @@ $LOGOUT_HOME = $FULL_URL . 'safe/redir?logout=' . $FULL_URL;
 
 $loader = new \Twig\Loader\FilesystemLoader('./templates');
 $twig = new \Twig\Environment($loader, [
-    'cache' => __DIR__.'/cache',
+    'cache' => __DIR__.'/.cache_twig',
 ]);
 
 // Twig globals
