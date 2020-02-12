@@ -25,3 +25,7 @@ img.candidate {
     max-width: 300px;
     margin: 0 auto;
 }
+
+html {
+    overflow-y: auto;
+}
