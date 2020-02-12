@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (empty($voterRoll)) continue;
 
                 $voter = new ElectionVoter();
-                $voter->setRollNo($voterRoll);
+                $voter->setRollNo(strtoupper($voterRoll));
                 $voter->setVoted(false);
                 $voter->setVoterList($voterList);
                 $voter->setElection($election);

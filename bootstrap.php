@@ -44,8 +44,12 @@ $twig->addGlobal('ssoredir', $FULL_URL . 'safe/redir?logout=' . $FULL_URL . 'saf
 $twig->addGlobal('logoutHome', $LOGOUT_HOME);
 $twig->addGlobal('year', date("Y"));
 
+// Uppercase admins list
+$SUPERADMIN_LIST = array_map('strtoupper', $SUPERADMIN_LIST);
+$ADMIN_LIST = array_map('strtoupper', $ADMIN_LIST);
+
 // User roll number
-$USER_ROLL = isset($_SERVER['OIDC_CLAIM_employeeNumber']) ? $_SERVER['OIDC_CLAIM_employeeNumber'] : null;
+$USER_ROLL = isset($_SERVER['OIDC_CLAIM_employeeNumber']) ? strtoupper($_SERVER['OIDC_CLAIM_employeeNumber']) : null;
 $USER_SUPERADMIN = in_array($USER_ROLL, $SUPERADMIN_LIST);
 $USER_ADMIN = $USER_SUPERADMIN || in_array($USER_ROLL, $ADMIN_LIST);
 
