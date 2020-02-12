@@ -1,8 +1,10 @@
+{% set noaddvl = voterList is not null and (not canEdit) %}
+
 <div class="field">
     <label class="label">Name</label>
     <div class="control">
         <input class="input" name="name" type="text" placeholder="Hostel 1" value="{{ voterList.getName() }}"
-               required {% if not canEdit %} disabled {% endif %}>
+            {% if noaddvl %} disabled {% endif %} required>
     </div>
 </div>
 
@@ -16,7 +18,7 @@
 <div class="field">
     <label class="checkbox">
         <input type="checkbox" name="require_code"
-          {{ voterList.getRequireCode() ? "checked" : "" }} {% if not canEdit %} disabled {% endif %}>
+          {{ voterList.getRequireCode() ? "checked" : "" }}>
         Require voting key
     </label>
 </div>

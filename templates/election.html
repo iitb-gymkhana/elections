@@ -37,11 +37,9 @@
                         {% endfor %}
                     </nav>
 
-                    {% if canEdit %}
                     <button data-target="create-voterlist" class="modal-button button is-danger is-outlined is-fullwidth">
                         Upload List
                     </button>
-                    {% endif %}
                 </div>
             </div>
         </div>
@@ -160,6 +158,7 @@
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
 </div>
+
 {% for voterList in election.getVoterLists() %}
 <div class="modal" id="edit-voterlist-{{ voterList.getId() }}">
     <div class="modal-background"></div>
