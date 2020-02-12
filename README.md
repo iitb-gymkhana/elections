@@ -58,3 +58,13 @@ _electron.ipcMain.on('logout', () => clearCache(mainWindow, options.targetUrl));
 
 window.ipc = _electron.ipcRenderer;
 ```
+
+Set internal urls in JSON config to
+```js
+"https:\\/\\/(gymkhana\\.iitb\\.ac\\.in\\/election|sso.*\\.iitb\\.ac\\.in).*"
+```
+
+Generate the native app with
+```bash
+nativefier --honest --fast-quit --full-screen --hide-window-frame --disable-context-menu --disable-dev-tools --single-instance --clear-cache --always-on-top https://gymkhana.iitb.ac.in/election/
+```
