@@ -38,7 +38,9 @@
                     {% endif %}
 
                     <a href="safe/admin">Admin Panel</a>
-                    {% if userRoll %} &bull; <a href="{{ logoutHome }}"> Logout </a> {% endif %}
+                    {% if userRoll %} &bull;
+                    <a onclick="logoutElectron(event)" href="{{ logoutHome }}"> Logout </a>
+                    {% endif %}
                     <br/>
 
                     &copy; Copyright {{ year }} &bull; <a href="https://gymkhana.iitb.ac.in" target="_blank">IIT Bombay</a>

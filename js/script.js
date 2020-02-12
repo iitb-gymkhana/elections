@@ -45,3 +45,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return Array.prototype.slice.call(document.querySelectorAll(selector), 0);
     }
 });
+
+function logoutElectron(event) {
+    if (window.ipc) {
+        window.ipc.send('logout', []);
+        if (event && event.preventDefault) event.preventDefault();
+        if (event && event.stopPropagation) event.stopPropagation();
+        return true;
+    }
+
+    return false;
+}

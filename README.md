@@ -42,3 +42,19 @@ Use the following command to generate proxy cache
 ```
 vendor/bin/doctrine orm:generate-proxies
 ```
+
+## Electron Integration
+Pack the website with nativefier and add the following lines to the indicated files. After this is done, electron should clear cookies of all sites after logout from elections.
+```js
+// resources/app/lib/main.js
+// Find this line -- mainWindowState.manage(mainWindow);
+
+_electron.ipcMain.on('logout', () => clearCache(mainWindow, options.targetUrl));
+```
+
+```js
+// resources/app/lib/static/preload.js
+// Add just after imports
+
+window.ipc = _electron.ipcRenderer;
+```
