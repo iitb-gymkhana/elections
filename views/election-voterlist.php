@@ -67,7 +67,7 @@ if (empty($_POST['id'])) {
         if (empty($voterRoll)) continue;
 
         // Sanitize
-        $voterRoll = strtoupper(preg_replace( '/[\W]/', '', $voterRoll));
+        $voterRoll = strtoupper(preg_replace( '/[^a-zA-Z0-9_.-]/', '', $voterRoll));
 
         // Might get a CN from LDAP
         $cn = '';
