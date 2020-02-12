@@ -34,7 +34,7 @@ $LOGOUT_HOME = $FULL_URL . 'safe/redir?logout=' . $FULL_URL;
 
 $loader = new \Twig\Loader\FilesystemLoader('./templates');
 $twig = new \Twig\Environment($loader, [
-    'cache' => __DIR__.'/.cache_twig',
+    'cache' => ($isDevMode === true ? false : __DIR__.'/.cache_twig'),
 ]);
 
 // Twig globals
