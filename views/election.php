@@ -68,6 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     else if ($_POST['class'] === 'candidate' && $canEdit) {
+        // Get the linked post
+        $post = $entityManager->find('ElectionPost', $_POST['postid']);
+        if ($post === null) { echo "No such post"; die(); }
+
+        // Get or create candidate
         if (empty($_POST['id'])) {
             $candidate = new ElectionCandidate();
             $candidate->setPost($post);
@@ -77,10 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo "No such candidate"; die();
             }
         }
-
-        // Get the linked post
-        $post = $entityManager->find('ElectionPost', $_POST['postid']);
-        if ($post === null) { echo "No such post"; die(); }
 
         // Check if deleting
         if (!empty($_POST['delete'])) {

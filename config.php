@@ -10,11 +10,11 @@ $conn = array(
 );
 
 // Create a simple "default" Doctrine ORM configuration for Annotations
-$isDevMode = true;
+$isDevMode = false;
 
 // URL config
-$BASE_URL = '/';
-$FULL_URL = 'http://10.105.177.27' . $BASE_URL;
+$BASE_URL = '/election/';
+$FULL_URL = 'https://gymkhana.iitb.ac.in' . $BASE_URL;
 $SSO_BASE = 'https://sso-uat.iitb.ac.in';
 
 $SUPERADMIN_LIST = array(
