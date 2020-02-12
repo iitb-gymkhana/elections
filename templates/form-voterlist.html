@@ -11,7 +11,7 @@
     {% if not voterList %}
     <p class="help" id="evl-hint">Use an existing name to add more voters</p>
     <script> var voterLists = JSON.parse('{{ allVoterListsJson | raw }}'); </script>
-    <input name="eid" id="evl-eid" value="">
+    <input hidden name="eid" id="evl-eid" value="">
     {% else %}
     <input hidden name="id" value="{{ voterList.getId() }}">
     {% endif %}
