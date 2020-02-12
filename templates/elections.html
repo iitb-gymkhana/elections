@@ -10,38 +10,40 @@
     <div class="container">
         <div class="columns is-centered">
             <div class="column is-half">
-                <nav class="panel is-info">
-                    <p class="panel-heading">
-                        Commissioned by you
-                    </p>
-                    {% for election in elections %}
-                    <a class="panel-block" href="safe/admin/{{ election.getId() }}">
-                        {% if election.getSuspended() %}
-                        <span class="panel-icon"> &#10006; </span>
-                        {% elseif election.getActive() %}
-                        <span class="panel-icon"> &#10070; </span>
-                        {% elseif election.getEnded() %}
-                        <span class="panel-icon"> &#10004; </span>
-                        {% else %}
-                        <span class="panel-icon"> &#10033; </span>
-                        {% endif %}
-
-                        {{ election.getName() }}
-                    </a>
-                    {% endfor %}
-                    <div class="panel-block">
-                        <a data-target="create-election" class="modal-button button is-link is-outlined is-fullwidth">
-                            Create Election
-                        </a>
+                <div class="box ">
+                    <div class="field has-text-centered">
+                        <h2 class="subtitle is-4"> Commissioned by you </h2>
                     </div>
-                </nav>
+                    <nav class="panel is-info is-shadowless">
+                        {% for election in elections %}
+                        <a class="panel-block" href="safe/admin/{{ election.getId() }}">
+                            {% if election.getSuspended() %}
+                            <span class="panel-icon"> &#10006; </span>
+                            {% elseif election.getActive() %}
+                            <span class="panel-icon"> &#10070; </span>
+                            {% elseif election.getEnded() %}
+                            <span class="panel-icon"> &#10004; </span>
+                            {% else %}
+                            <span class="panel-icon"> &#10033; </span>
+                            {% endif %}
 
-                <nav class="pagination is-small is-rounded" role="navigation" aria-label="pagination">
-                    <a class="pagination-previous" href="safe/admin?p={{ prev }}"
-                        {% if prev is null %} disabled {% endif %}> Previous </a>
-                    <a class="pagination-next" href="safe/admin?p={{ next }}"
-                        {% if next is null %} disabled {% endif %}> Next page </a>
-                </nav>
+                            {{ election.getName() }}
+                        </a>
+                        {% endfor %}
+                        <div class="panel-block">
+                            <a data-target="create-election" class="modal-button button is-link is-outlined is-fullwidth">
+                                Create Election
+                            </a>
+                        </div>
+                    </nav>
+
+                    <nav class="pagination is-small is-rounded" role="navigation" aria-label="pagination">
+                        <a class="pagination-previous" href="safe/admin?p={{ prev }}"
+                            {% if prev is null %} disabled {% endif %}> Previous </a>
+                        <a class="pagination-next" href="safe/admin?p={{ next }}"
+                            {% if next is null %} disabled {% endif %}> Next page </a>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
