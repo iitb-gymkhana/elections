@@ -108,6 +108,7 @@ foreach ($voters as $v) {
         if (checkIP($v) !== false) {
             $voter = $v;
             $election = $v->getElection();
+            break;
         }
     }
 }
