@@ -108,3 +108,25 @@ function checkEVL(event) {
     elem.classList.remove('is-success');
     elem.innerHTML = 'Use an existing name to add more voters';
 }
+
+function printResult() {
+    let resultSections = document.getElementsByClassName("result-section-pl");
+    for (var i = 0; i < resultSections.length; i++) {
+        if (document.getElementById('chk-explode').checked) {
+            resultSections.item(i).classList.add('result-section');
+        } else {
+            resultSections.item(i).classList.remove('result-section');
+        }
+    }
+
+    resultSections = document.getElementsByClassName("result-details-pl");
+    for (var i = 0; i < resultSections.length; i++) {
+        if (document.getElementById('chk-details').checked) {
+            resultSections.item(i).classList.remove('result-details');
+        } else {
+            resultSections.item(i).classList.add('result-details');
+        }
+    }
+
+    window.print();
+}

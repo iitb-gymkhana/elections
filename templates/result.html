@@ -48,6 +48,11 @@
             </div>
 
             {% for post in election.getPosts() %}
+            <div class="result-section-pl">
+                {% include "head-hero.html" %}
+                <h2 class="title is-4">{{ election.getName() }}</h2>
+            </div>
+
             <div class="box is-shadowless">
                 <h2 class="subtitle is-5">{{ post.getName() }}</h2>
 
@@ -105,67 +110,91 @@
 
                 <!-- =============================== SUPERADMIN STUFF =============================== -->
                 {% if post.resultDetail %}
-                <br />
-                {% if post.isYNN() %}
-                <table class="table is-centered has-text-centered">
-                    <thead>
-                        <tr>
-                            <th rowspan="2"> </th>
-                            {% for name, candidate in post.resultDetail|first %}
-                                <th align="center" colspan="3"> {{ name }}</th>
+                    <div class="result-details-pl result-details">
+                    <br />
+                    {% if post.isYNN() %}
+                    <table class="table is-centered has-text-centered">
+                        <thead>
+                            <tr>
+                                <th rowspan="2"> </th>
+                                {% for name, candidate in post.resultDetail|first %}
+                                    <th align="center" colspan="3"> {{ name }}</th>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                {% for name, candidate in post.resultDetail|first %}
+                                    <th> Yes </th>
+                                    <th> No </th>
+                                    <th> Neutral </th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for list, candidates in post.resultDetail %}
+                            <tr>
+                                <td class="text-left"> {{ list }} </td>
+                                {% for name, c in candidates %}
+                                    <td> {{ c.yes }} </td>
+                                    <td> {{ c.no }} </td>
+                                    <td> {{ c.neutral }} </td>
+                                {% endfor %}
+                            </tr>
                             {% endfor %}
-                        </tr>
-                        <tr>
-                            {% for name, candidate in post.resultDetail|first %}
-                                <th> Yes </th>
-                                <th> No </th>
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <table class="table is-centered has-text-centered">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                {% for name, candidate in post.resultDetail|first %}
+                                <th> {{ name }}</th>
+                                {% endfor %}
+                                <th> NOTA </th>
                                 <th> Neutral </th>
-                            {% endfor %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for list, candidates in post.resultDetail %}
-                        <tr>
-                            <td class="text-left"> {{ list }} </td>
-                            {% for name, c in candidates %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for list, candidates in post.resultDetail %}
+                            <tr>
+                                <td class="text-left"> {{ list }} </td>
+                                {% for name, c in candidates %}
                                 <td> {{ c.yes }} </td>
-                                <td> {{ c.no }} </td>
-                                <td> {{ c.neutral }} </td>
+                                {% endfor %}
+                                <td> {{ (candidates|first).nota }} </td>
+                                <td> {{ (candidates|first).neutral }} </td>
+                            </tr>
                             {% endfor %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {% else %}
-                <table class="table is-centered has-text-centered">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            {% for name, candidate in post.resultDetail|first %}
-                            <th> {{ name }}</th>
-                            {% endfor %}
-                            <th> NOTA </th>
-                            <th> Neutral </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for list, candidates in post.resultDetail %}
-                        <tr>
-                            <td class="text-left"> {{ list }} </td>
-                            {% for name, c in candidates %}
-                            <td> {{ c.yes }} </td>
-                            {% endfor %}
-                            <td> {{ (candidates|first).nota }} </td>
-                            <td> {{ (candidates|first).neutral }} </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {% endif %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
                 {% endif %}
 
             </div>
             {% endfor %}
+
+            <div class="columns is-centered no-print">
+                <div class="column is-narrow">
+                    <div class="field">
+                        <label class="checkbox">
+                            <input type="checkbox" id="chk-explode">
+                            Explode posts
+                        </label>
+                    </div>
+                    <div class="field">
+                        <label class="checkbox">
+                            <input type="checkbox" id="chk-details">
+                            Include details
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="columns is-centered no-print">
+                <div class="column is-one-quarter">
+                    <button class="button is-outlined is-success is-fullwidth" onclick="printResult()"> Print </button>
+                </div>
+            </div>
         </div>
     </div>
 </section>

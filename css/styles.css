@@ -46,6 +46,10 @@ img.candidate {
     z-index: 10;
 }
 
+.result-section-pl {
+    display: none;
+}
+
 @page {
     size: auto;
     margin: 0;
@@ -54,5 +58,14 @@ img.candidate {
 @media print {
     .no-print, .no-print * {
         display: none !important;
+    }
+
+    .result-section {
+        display: block;
+        page-break-before: always;
+    }
+
+    .result-details {
+        display: none;
     }
 }

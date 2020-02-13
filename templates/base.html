@@ -17,19 +17,7 @@
         {% block head %} {% endblock %}
     </head>
     <body>
-
-        <section id="top" class="hero is-info">
-            <div class="hero-body">
-                <div class="container">
-                <h1 class="title">
-                    <a href="" style="color: white">Elections</a>
-                </h1>
-                <h2 class="subtitle">
-                    Gymkhana IIT Bombay
-                </h2>
-                </div>
-            </div>
-        </section>
+        {% include "head-hero.html" %}
 
         <div id="content">{% block content %}{% endblock %}</div>
 
