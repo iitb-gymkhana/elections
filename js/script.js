@@ -109,7 +109,7 @@ function checkEVL(event) {
     elem.innerHTML = 'Use an existing name to add more voters';
 }
 
-function printResult() {
+window.addEventListener("beforeprint", function() {
     let resultSections = document.getElementsByClassName("result-section-pl");
     for (var i = 0; i < resultSections.length; i++) {
         if (document.getElementById('chk-explode').checked) {
@@ -127,6 +127,4 @@ function printResult() {
             resultSections.item(i).classList.add('result-details');
         }
     }
-
-    window.print();
-}
+});

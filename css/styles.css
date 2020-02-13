@@ -50,14 +50,31 @@ img.candidate {
     display: none;
 }
 
-@page {
-    size: auto;
-    margin: 0;
-}
-
 @media print {
     .no-print, .no-print * {
         display: none !important;
+    }
+
+    .hero-body {
+        padding: 1rem 1.5rem;
+    }
+
+    .section {
+        padding: 1rem 1.5rem;
+    }
+
+    .table td, .table th {
+        padding-top: 2.5px;
+        padding-bottom: 2.5px;
+        font-size: 11pt;
+    }
+
+    .result-box {
+        page-break-inside: avoid;
+    }
+
+    .hero-body {
+        padding: 1rem 1.5rem;
     }
 
     .result-section {

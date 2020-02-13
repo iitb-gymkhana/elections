@@ -9,7 +9,7 @@
         <div class="has-text-centered">
             <h2 class="title is-4">{{ election.getName() }}</h2>
 
-            <div class="box is-shadowless">
+            <div class="box is-shadowless result-box">
                 <h2 class="subtitle is-5">Voter Turnout</h2>
                 <table class="table is-centered has-text-centered">
                     <thead>
@@ -53,7 +53,7 @@
                 <h2 class="title is-4">{{ election.getName() }}</h2>
             </div>
 
-            <div class="box is-shadowless">
+            <div class="box is-shadowless result-box">
                 <h2 class="subtitle is-5">{{ post.getName() }}</h2>
 
                 {% if post.isYNN() %}
@@ -192,7 +192,7 @@
             </div>
             <div class="columns is-centered no-print">
                 <div class="column is-one-quarter">
-                    <button class="button is-outlined is-success is-fullwidth" onclick="printResult()"> Print </button>
+                    <button class="button is-outlined is-success is-fullwidth" onclick="window.print()"> Print </button>
                 </div>
             </div>
         </div>
