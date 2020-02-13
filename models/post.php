@@ -174,11 +174,14 @@ class ElectionPost
      * Check if current user can vote
      */
     public function canVote() {
-        if ($this->type === 'ALL') {
-            return true;
-        }
+        $type = strtoupper($this->type);
+        $claim = strtoupper($_SERVER['OIDC_CLAIM_employeeType']);
 
-        return $this->type === strtoupper($_SERVER['OIDC_CLAIM_employeeType']);
+        if ($type === 'ALL') return true;
+        if ($type === 'UG') return $claim === 'UG';
+        if ($type === 'PG') return $claim !== 'UG';
+
+        return false;
     }
 
     /**
