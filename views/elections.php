@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $entityManager->flush();
 
     header("HTTP/1.1 303 See Other");
-    header("Location: " . $election->getId());
+    header("Location: $BASE_URL" . 'safe/admin/' . $election->getId());
     die();
 }
 
