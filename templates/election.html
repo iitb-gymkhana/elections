@@ -32,7 +32,7 @@
                         {% for voterList in election.getVoterLists() %}
                         <a data-target="edit-voterlist-{{ voterList.getId() }}" class="panel-block modal-button">
                             <span class="panel-icon"> &#8962; </span>
-                            {{ voterList.getName() }}
+                            {{ voterList.getName() }} ({{ voterList.getRegisteredCount() }})
                         </a>
                         {% endfor %}
                     </nav>

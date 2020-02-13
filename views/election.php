@@ -44,6 +44,11 @@ $q = $entityManager->createQueryBuilder()
         ->getQuery();
 $vlJson = json_encode($q->getResult());
 
+// Get voterlist counts
+foreach ($election->getVoterLists() as $vl) {
+    $vl->getRegisteredCount($entityManager);
+}
+
 echo $twig->render('election.html', [
     'election' => $election,
     'superAdmin' => $USER_SUPERADMIN,
