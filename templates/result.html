@@ -21,6 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% set regTotal = 0 %} {% set turnoutTotal = 0 %}
                         {% for voterList in voterLists %}
                         <tr>
                             <td class="text-left"> {{ voterList.getName() }} </td>
@@ -30,7 +31,18 @@
                                 {{ (voterList.getTurnoutCount() / voterList.getRegisteredCount() * 100) | round }}%
                             </td>
                         </tr>
+                        {% set regTotal = regTotal + voterList.getRegisteredCount() %}
+                        {% set turnoutTotal = turnoutTotal + voterList.getTurnoutCount() %}
                         {% endfor %}
+
+                        <tr style="font-weight: bold;">
+                            <td class="text-left"> Total </td>
+                            <td> {{ regTotal }} </td>
+                            <td> {{ turnoutTotal }} </td>
+                            <td>
+                                {{ (turnoutTotal / regTotal * 100) | round }}%
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
