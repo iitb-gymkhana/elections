@@ -35,7 +35,7 @@ $qb = $entityManager->createQueryBuilder()
         ->setMaxResults($pageSize);
 
 if (!$USER_SUPERADMIN) {
-    $qb = $qb->where("e.creator = $USER_ROLL");
+    $qb = $qb->where("e.creator = '$USER_ROLL'");
 }
 
 $query = $qb->getQuery();
