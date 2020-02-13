@@ -100,7 +100,7 @@
                         <tr>
                             <th rowspan="2"> </th>
                             {% for name, candidate in post.resultDetail|first %}
-                                <th colspan="4"> {{ name }}</th>
+                                <th align="center" colspan="3"> {{ name }}</th>
                             {% endfor %}
                         </tr>
                         <tr>
@@ -114,7 +114,7 @@
                     <tbody>
                         {% for list, candidates in post.resultDetail %}
                         <tr>
-                            <td  class="text-left"> {{ list }} </td>
+                            <td class="text-left"> {{ list }} </td>
                             {% for name, c in candidates %}
                                 <td> {{ c.yes }} </td>
                                 <td> {{ c.no }} </td>
