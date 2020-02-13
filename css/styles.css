@@ -2,6 +2,11 @@ html {
     overflow-y: auto;
 }
 
+#content, .result-box {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
 img.candidate {
     width: 100%;
     width: 230px;
