@@ -28,7 +28,7 @@ if (!empty($_POST['delete']) && $canEdit) {
     }
 
     $voterList->setRequireCode(isset($_POST['require_code']));
-    $voterList->setBoothIPs($_POST['booths']);
+    $voterList->setBoothIPs($_POST['booths'] ?? '');
     $entityManager->persist($voterList);
 }
 

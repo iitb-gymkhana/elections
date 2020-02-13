@@ -37,13 +37,6 @@ $twig = new \Twig\Environment($loader, [
     'cache' => ($isDevMode === true ? false : __DIR__.'/.cache_twig'),
 ]);
 
-// Twig globals
-$twig->addGlobal('baseUrl', $BASE_URL);
-$twig->addGlobal('sso', $SSO_BASE);
-$twig->addGlobal('ssoredir', $FULL_URL . 'safe/redir?logout=' . $FULL_URL . 'safe/vote');
-$twig->addGlobal('logoutHome', $LOGOUT_HOME);
-$twig->addGlobal('year', date("Y"));
-
 // Uppercase admins list
 $SUPERADMIN_LIST = array_map('strtoupper', $SUPERADMIN_LIST);
 $ADMIN_LIST = array_map('strtoupper', $ADMIN_LIST);
@@ -53,7 +46,13 @@ $USER_ROLL = isset($_SERVER['OIDC_CLAIM_employeeNumber']) ? strtoupper($_SERVER[
 $USER_SUPERADMIN = in_array($USER_ROLL, $SUPERADMIN_LIST);
 $USER_ADMIN = $USER_SUPERADMIN || in_array($USER_ROLL, $ADMIN_LIST);
 
-// Pass globally
+// Twig globals
+$twig->addGlobal('baseUrl', $BASE_URL);
+$twig->addGlobal('sso', $SSO_BASE);
+$twig->addGlobal('ssoredir', $FULL_URL . 'safe/redir?logout=' . $FULL_URL . 'safe/vote');
+$twig->addGlobal('logoutHome', $LOGOUT_HOME);
+$twig->addGlobal('year', date("Y"));
+$twig->addGlobal('superAdmin', $USER_SUPERADMIN);
 $twig->addGlobal('userRoll', $USER_ROLL);
 
 // Stop cache

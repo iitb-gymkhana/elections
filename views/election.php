@@ -51,6 +51,5 @@ foreach ($election->getVoterLists() as $vl) {
 
 echo $twig->render('election.html', [
     'election' => $election,
-    'superAdmin' => $USER_SUPERADMIN,
     'allVoterListsJson' => $vlJson,
 ]);
