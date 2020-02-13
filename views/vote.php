@@ -103,12 +103,16 @@ $voters = $query->getResult();
 // Check which election not voted
 $election = null;
 $voter = null;
+$hasBadIP = false;
+
 foreach ($voters as $v) {
     if (!$v->getVoted() && $v->getElection()->getActive() && !$v->getElection()->getSuspended()) {
         if (checkIP($v) !== false) {
             $voter = $v;
             $election = $v->getElection();
             break;
+        } else {
+            $hasBadIP = true;
         }
     }
 }
@@ -117,6 +121,7 @@ foreach ($voters as $v) {
 if ($election === null) {
     echo $twig->render('vote-message.html', [
         'message' => 'No elections for you to vote for right now!',
+        'error' => $hasBadIP ? 'Some active elections require you to vote at polling booths' : '',
         'redir' => $LOGOUT_HOME,
     ]);
     die();
