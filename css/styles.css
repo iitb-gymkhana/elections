@@ -18,6 +18,12 @@ img.candidate {
 .table.is-centered {
     margin: 0 auto;
 }
+.table.has-text-centered td {
+    text-align: center;
+}
+.table.has-text-centered .text-left {
+    text-align: left;
+}
 
 #ssod {
     width: 80vw;

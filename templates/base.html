@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html moznomarginboxes mozdisallowselectionprint>
+<html lang="en-us">
     <head>
         <title>{% block title %}{% endblock %} | Elections | Gymkhana IITB </title>
         <base href="{{ baseUrl }}" />
@@ -35,7 +35,7 @@
 
         <footer class="footer no-print">
             <div class="content has-text-centered">
-                <p>
+                <div>
                     {% if userRoll %}
                     <div class="subtitle is-6">
                         Logged in as {{ userRoll }}
@@ -50,8 +50,7 @@
 
                     &copy; Copyright {{ year }} &bull; <a href="https://gymkhana.iitb.ac.in" target="_blank">IIT Bombay</a>
                     &bull; <a href="https://github.com/pulsejet" target="_blank"> Varun Patil </a>
-
-                </p>
+                </div>
             </div>
         </footer>
     </body>

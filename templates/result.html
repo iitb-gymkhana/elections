@@ -5,26 +5,54 @@
 {% block content %}
 
 <section class="section">
-    <div class="container" method="POST">
+    <div class="container">
         <div class="has-text-centered">
             <h2 class="title is-4">{{ election.getName() }}</h2>
+
+            <div class="box is-shadowless">
+                <h2 class="subtitle is-5">Voter Turnout</h2>
+                <table class="table is-centered has-text-centered">
+                    <thead>
+                        <tr>
+                            <th> </th>
+                            <th> Registered </th>
+                            <th> Turnout </th>
+                            <th> Percentage </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for voterList in voterLists %}
+                        <tr>
+                            <td class="text-left"> {{ voterList.getName() }} </td>
+                            <td> {{ voterList.getRegisteredCount() }} </td>
+                            <td> {{ voterList.getTurnoutCount() }} </td>
+                            <td>
+                                {{ (voterList.getTurnoutCount() / voterList.getRegisteredCount() * 100) | round }}%
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
             {% for post in election.getPosts() %}
             <div class="box is-shadowless">
                 <h2 class="subtitle is-5">{{ post.getName() }}</h2>
 
                 {% if post.isYNN() %}
-                <table class="table is-centered">
+                <table class="table is-centered has-text-centered">
                     <thead>
-                        <th> Candidate </th>
-                        <th> Yes </th>
-                        <th> No </th>
-                        <th> Neutral </th>
+                        <tr>
+                            <th> </th>
+                            <th> Yes </th>
+                            <th> No </th>
+                            <th> Neutral </th>
+                        </tr>
                     </thead>
                     <tbody>
                         {% for candidate in post.getCandidates() %}
                         <tr>
-                            <td> {{ candidate.getName() }} </td>
+                            <td class="text-left"> {{ candidate.getName() }} </td>
                             <td> {{ candidate.resultYes }} </td>
                             <td> {{ candidate.resultNo }} </td>
                             <td> {{ candidate.resultNeutral }} </td>
@@ -35,24 +63,26 @@
 
                 {% else %}
 
-                <table class="table is-centered">
+                <table class="table is-centered has-text-centered">
                     <thead>
-                        <th> Candidate </th>
-                        <th> Votes </th>
+                        <tr>
+                            <th> </th>
+                            <th> Votes </th>
+                        </tr>
                     </thead>
                     <tbody>
                         {% for candidate in post.getCandidates() %}
                         <tr>
-                            <td> {{ candidate.getName() }} </td>
+                            <td class="text-left"> {{ candidate.getName() }} </td>
                             <td> {{ candidate.resultYes }} </td>
                         </tr>
                         {% endfor %}
                         <tr>
-                            <td> NOTA </td>
+                            <td class="text-left"> NOTA </td>
                             <td> {{ post.resultNOTA }} </td>
                         </tr>
                         <tr>
-                            <td> Neutral </td>
+                            <td class="text-left"> Neutral </td>
                             <td> {{ post.resultNeutral }} </td>
                         </tr>
                     </tbody>
@@ -65,56 +95,56 @@
                 {% if post.resultDetail %}
                 <br />
                 {% if post.isYNN() %}
-                <table class="table is-centered">
+                <table class="table is-centered has-text-centered">
                     <thead>
                         <tr>
-                            <th align="left" rowspan="2"> </th>
+                            <th rowspan="2"> </th>
                             {% for name, candidate in post.resultDetail|first %}
-                                <th align="center" colspan="4"> {{ name }}</th>
+                                <th colspan="4"> {{ name }}</th>
                             {% endfor %}
                         </tr>
                         <tr>
                             {% for name, candidate in post.resultDetail|first %}
-                                <th align="center"> Yes </th>
-                                <th align="center"> No </th>
-                                <th align="center"> Neutral </th>
+                                <th> Yes </th>
+                                <th> No </th>
+                                <th> Neutral </th>
                             {% endfor %}
                         </tr>
                     </thead>
                     <tbody>
                         {% for list, candidates in post.resultDetail %}
                         <tr>
-                            <td align="left"> {{ list }} </td>
+                            <td  class="text-left"> {{ list }} </td>
                             {% for name, c in candidates %}
-                                <td align="center"> {{ c.yes }} </td>
-                                <td align="center"> {{ c.no }} </td>
-                                <td align="center"> {{ c.neutral }} </td>
+                                <td> {{ c.yes }} </td>
+                                <td> {{ c.no }} </td>
+                                <td> {{ c.neutral }} </td>
                             {% endfor %}
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
                 {% else %}
-                <table class="table is-centered">
+                <table class="table is-centered has-text-centered">
                     <thead>
                         <tr>
-                            <th align="left"></th>
+                            <th></th>
                             {% for name, candidate in post.resultDetail|first %}
-                            <th align="center"> {{ name }}</th>
+                            <th> {{ name }}</th>
                             {% endfor %}
-                            <th align="center"> NOTA </th>
-                            <th align="center"> Neutral </th>
+                            <th> NOTA </th>
+                            <th> Neutral </th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for list, candidates in post.resultDetail %}
                         <tr>
-                            <td align="left"> {{ list }} </td>
+                            <td class="text-left"> {{ list }} </td>
                             {% for name, c in candidates %}
-                            <td align="center"> {{ c.yes }} </td>
+                            <td> {{ c.yes }} </td>
                             {% endfor %}
-                            <td align="center"> {{ (candidates|first).nota }} </td>
-                            <td align="center"> {{ (candidates|first).neutral }} </td>
+                            <td> {{ (candidates|first).nota }} </td>
+                            <td> {{ (candidates|first).neutral }} </td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -125,7 +155,7 @@
             </div>
             {% endfor %}
         </div>
-    <div>
+    </div>
 </section>
 
 {% endblock %}

@@ -32,6 +32,9 @@ class ElectionVoterList
      */
     protected $requireCode;
 
+    protected $turnoutCount = null;
+    protected $registeredCount = null;
+
     /**
      * Get the value of id
      */
@@ -119,6 +122,37 @@ class ElectionVoterList
         $this->requireCode = $requireCode;
 
         return $this;
+    }
+
+    /**
+     * Get total registered voters
+     */
+    public function getRegisteredCount($entityManager = null) {
+        if ($this->registeredCount === null && $entityManager) {
+            $this->registeredCount = $entityManager->createQueryBuilder()
+                ->select('count(v.id)')
+                ->from('ElectionVoter', 'v')
+                ->where('IDENTITY(v.voterList) = ' . $this->getId())
+                ->getQuery()->getSingleScalarResult();
+        }
+
+        return $this->registeredCount;
+    }
+
+    /**
+     * Get the turnout of the voterlist
+     */
+    public function getTurnoutCount($entityManager = null) {
+        if ($this->turnoutCount === null && $entityManager) {
+            $this->turnoutCount = $entityManager->createQueryBuilder()
+                ->select('count(v.id)')
+                ->from('ElectionVoter', 'v')
+                ->where('IDENTITY(v.voterList) = ' . $this->getId())
+                ->andWhere('v.voted = true')
+                ->getQuery()->getSingleScalarResult();
+        }
+
+        return $this->turnoutCount;
     }
 }
 

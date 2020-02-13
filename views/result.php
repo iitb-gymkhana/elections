@@ -16,6 +16,14 @@ $qb = $entityManager->createQueryBuilder()
     ->from('ElectionVote', 'v')
     ->where('IDENTITY(v.candidate) = :candidate');
 
+// Compute turnout
+$voterLists = $election->getVoterLists();
+foreach ($voterLists as $vl) {
+    $vl->getTurnoutCount($entityManager);
+    $vl->getRegisteredCount($entityManager);
+}
+
+// Compute result
 foreach ($election->getPosts() as $post) {
     // Detailed result
     $detail = array();
@@ -77,4 +85,7 @@ foreach ($election->getPosts() as $post) {
     $post->resultNeutral /= $count;
 }
 
-echo $twig->render('result.html', ['election' => $election ]);
+echo $twig->render('result.html', [
+    'election' => $election,
+    'voterLists' => $voterLists,
+]);
