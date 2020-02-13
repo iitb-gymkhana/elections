@@ -31,7 +31,7 @@ foreach ($election->getPosts() as $post) {
 
     // Create detail structure
     foreach ($post->getCandidates() as $candidate) {
-        $structure[$candidate->getName()] = array(
+        $structure[$candidate->getFirstName()] = array(
             'yes' => 0, 'no' => 0, 'nota' => 0, 'neutral' => 0,
         );
     }
@@ -50,8 +50,9 @@ foreach ($election->getPosts() as $post) {
                 }
 
                 // Add vote
-                if (array_key_exists($vote->getVote(), $detail[$vList][$candidate->getName()])) {
-                    $detail[$vList][$candidate->getName()][$vote->getVote()]++;
+                $fn = $candidate->getFirstName();
+                if (array_key_exists($vote->getVote(), $detail[$vList][$fn])) {
+                    $detail[$vList][$fn][$vote->getVote()]++;
                 }
             }
 

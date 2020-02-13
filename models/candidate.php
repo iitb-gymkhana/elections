@@ -70,6 +70,14 @@ class ElectionCandidate
     }
 
     /**
+     * Get first name
+     */
+    public function getFirstName()
+    {
+        return explode(' ', trim($this->name))[0];
+    }
+
+    /**
      * Set the value of name
      *
      * @return  self
