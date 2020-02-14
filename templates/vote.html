@@ -77,7 +77,7 @@
 </section>
 
 <div id="time-div" class="has-background-danger is-large">
-    <h1 class="title" id="time">Title</h1>
+    <h1 class="title" id="time"> </h1>
 </div>
 <script>
     var timeCount = Number('{{ election.getTime() | default(0) }}');
@@ -96,9 +96,11 @@
             timeElem.innerHTML = timeCount;
             if (timeCount <= 0) {
                 clearInterval(timeInterval);
+                /* {% if not preview %} */
                 if (!logoutElectron()) {
                     window.location.href = '{{ logoutHome }}';
                 }
+                /* {% endif %} */
             }
         }, 1000);
     }
