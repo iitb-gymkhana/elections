@@ -6,6 +6,14 @@
     </div>
 </div>
 
+<div class="field">
+    <label class="label">Voting Time (s)</label>
+    <div class="control">
+      <input class="input" name="time" type="number" placeholder="25" value="{{ election.getTime() | default(90) }}"
+             required {% if not canEdit %} disabled {% endif %}>
+    </div>
+</div>
+
 {% if election %}
 {% if election.getSuspended() %}
 <div class="notification is-warning"> Suspended </div>

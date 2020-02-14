@@ -51,6 +51,11 @@ class Election
      */
     protected $creator;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $time;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -164,6 +169,26 @@ class Election
     public function setSuspended($suspended)
     {
         $this->suspended = $suspended;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of time
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    /**
+     * Set the value of time
+     *
+     * @return  self
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
 
         return $this;
     }

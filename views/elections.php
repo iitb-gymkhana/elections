@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $election->setEnded(false);
     $election->setSuspended(false);
     $election->setCreator($USER_ROLL);
+    $election->setTime($_POST['time']);
 
     $entityManager->persist($election);
     $entityManager->flush();

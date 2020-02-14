@@ -34,7 +34,7 @@ Put database and other information in `bootstrap.php`. Install `mod-auth-openidc
 ## Migrations
 Perform migrations with PHP CLI
 ```bash
-vendor/bin/doctrine orm:schema-tool:update --dump-sql
+vendor/bin/doctrine orm:schema-tool:update --force --dump-sql
 ```
 
 ## Proxy cache generation

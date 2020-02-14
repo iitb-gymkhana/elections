@@ -22,8 +22,10 @@ if (!$election->getEnded()) {
 }
 
 // Update
-if (isset($_POST['name'])) {
+if ($canEdit) {
     $election->setName($_POST['name']);
+    $election->setTime(intval($_POST['time']));
+
 }
 
 $entityManager->persist($election);

@@ -76,4 +76,33 @@
     <form>
 </section>
 
+<div id="time-div" class="has-background-danger is-large">
+    <h1 class="title" id="time">Title</h1>
+</div>
+<script>
+    var timeCount = Number('{{ election.getTime() | default(0) }}');
+
+    function setupTimeCount() {
+        const timeElem = document.getElementById('time');
+        if (!timeCount) {
+            document.getElementById('time-div').style.display = 'none';
+            return;
+        }
+
+        timeElem.innerHTML = timeCount;
+
+        const timeInterval = setInterval(() => {
+            timeCount -= 1;
+            timeElem.innerHTML = timeCount;
+            if (timeCount <= 0) {
+                clearInterval(timeInterval);
+                if (!logoutElectron()) {
+                    window.location.href = '{{ logoutHome }}';
+                }
+            }
+        }, 1000);
+    }
+    setupTimeCount();
+</script>
+
 {% endblock %}
