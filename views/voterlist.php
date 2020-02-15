@@ -11,11 +11,11 @@ $query = $entityManager->createQuery("SELECT u FROM ElectionVoter u WHERE IDENTI
 header('Content-Type: application/csv');
 header('Content-Disposition: attachment; filename="' . $voterList->getName() .'.csv";');
 $f = fopen('php://output', 'w');
-fputcsv($f, array('Roll Number', 'Code'), ',');
+fputcsv($f, array('Roll Number', 'Name', 'Code'), ',');
 
 $iterableResult = $query->iterate();
 foreach ($iterableResult as $row) {
     $voter = $row[0];
-    fputcsv($f, array($voter->getRollNo(), $voter->getCode()), ',');
+    fputcsv($f, array($voter->getRollNo(), $voter->getName(), $voter->getCode()), ',');
     $entityManager->detach($voter);
 }

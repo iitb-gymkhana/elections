@@ -106,6 +106,7 @@ if (empty($_POST['id'])) {
         $voter->setVoterList($voterList);
         $voter->setElection($election);
         $voter->setCode(generateRandomString(6));
+        $voter->setName($cn);
         $entityManager->persist($voter);
 
         // Add to added
