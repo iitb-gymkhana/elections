@@ -148,7 +148,7 @@ class ElectionVoterList
                 ->select('count(v.id)')
                 ->from('ElectionVoter', 'v')
                 ->where('IDENTITY(v.voterList) = ' . $this->getId())
-                ->andWhere('v.voted = true')
+                ->andWhere('v.voted = 1')
                 ->getQuery()->getSingleScalarResult();
         }
 
@@ -174,7 +174,7 @@ class ElectionVoter
      */
     protected $rollNo;
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
     protected $voted;
 

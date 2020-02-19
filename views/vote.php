@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Check if duplicate
-    if ($voter->getVoted() === true) {
+    if ($voter->getVoted() === 1) {
         echo "Voter already voted"; die;
     }
 
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Mark voted
-    $voter->setVoted(true);
+    $voter->setVoted(1);
     $entityManager->persist($voter);
 
     foreach ($election->getPosts() as $post) {
@@ -106,7 +106,7 @@ $voter = null;
 $hasBadIP = false;
 
 foreach ($voters as $v) {
-    if (!$v->getVoted() && $v->getElection()->getActive() && !$v->getElection()->getSuspended()) {
+    if ($v->getVoted() === 0 && $v->getElection()->getActive() && !$v->getElection()->getSuspended()) {
         if (checkIP($v) !== false) {
             $voter = $v;
             $election = $v->getElection();

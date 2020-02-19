@@ -102,7 +102,7 @@ if (empty($_POST['id'])) {
         // Create new
         $voter = new ElectionVoter();
         $voter->setRollNo($voterRoll);
-        $voter->setVoted(false);
+        $voter->setVoted(0);
         $voter->setVoterList($voterList);
         $voter->setElection($election);
         $voter->setCode(generateRandomString(6));

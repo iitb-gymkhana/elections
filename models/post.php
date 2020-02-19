@@ -178,8 +178,8 @@ class ElectionPost
         $claim = strtoupper($_SERVER['OIDC_CLAIM_employeeType']);
 
         if ($type === 'ALL') return true;
-        if ($type === 'UG') return $claim === 'UG';
-        if ($type === 'PG') return $claim !== 'UG';
+        if ($type === 'UG') return $claim === 'UG' || $claim === 'DD';
+        if ($type === 'PG') return $claim !== 'UG' && $claim !== 'DD';
 
         return false;
     }
