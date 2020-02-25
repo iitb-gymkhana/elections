@@ -9,7 +9,7 @@ $conn = array(
     'driver' => 'pdo_mysql',
 );
 
-// Create a simple "default" Doctrine ORM configuration for Annotations
+// Debug mode
 $isDevMode = false;
 
 // URL config

@@ -2,7 +2,10 @@
 
 // Get the linked post
 $post = $entityManager->find('ElectionPost', $_POST['postid']);
-if ($post === null) { echo "No such post"; die(); }
+if ($post === null) {
+    http_response_code(404);
+    echo "No such post"; die();
+}
 
 // Get or create candidate
 if (empty($_POST['id'])) {

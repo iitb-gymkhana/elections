@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $entityManager->persist($election);
     $entityManager->flush();
 
-    header("HTTP/1.1 303 See Other");
+    http_response_code(303);
     header("Location: $BASE_URL" . 'safe/admin/' . $election->getId());
     die();
 }
@@ -27,7 +27,7 @@ $queries = array(); parse_str($_SERVER['QUERY_STRING'], $queries);
 $page = intval($queries['p'] ?? 0);
 
 // All elections for super admin, own for others
-$pageSize = 25;
+$pageSize = 100;
 $qb = $entityManager->createQueryBuilder()
         ->select('e')
         ->orderBy('e.id', 'DESC')

@@ -5,7 +5,7 @@ include "helpers.php";
 
 // Get election
 $election = $entityManager->find('Election', $electionId);
-if ($election === null) { echo "No such election"; die(); }
+if ($election === null) dieNoElection();
 if (!$USER_SUPERADMIN && $election->getCreator() !== $USER_ROLL) dieNoElection();
 
 // Handle updating

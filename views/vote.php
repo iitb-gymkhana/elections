@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Election active
     if (!$election->getActive() || $election->getSuspended()) {
+        http_response_code(400);
         echo "Election not active"; die;
     }
 
@@ -27,21 +28,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check existence
     if ($voter === null) {
+        http_response_code(403);
         echo "No voter found for roll number"; die;
     }
 
     // Check if duplicate
     if ($voter->getVoted() === 1) {
+        http_response_code(403);
         echo "Voter already voted"; die;
     }
 
     // Requires voting key
     if ($voter->getVoterList()->getRequireCode() && $votingKey !== $voter->getCode()) {
+        http_response_code(401);
         echo "Illegal voting key!"; die;
     }
 
     // Check IP fence
     if (checkIP($voter) === false) {
+        http_response_code(403);
         echo "IP address not recognized"; die;
     }
 
@@ -63,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($post->isYNN()) {
                 $vote = $_POST['c-' . $candidate->getId()];
                 if (!isset($vote) || !in_array($vote, ['yes', 'no', 'neutral'])) {
+                    http_response_code(400);
                     echo "Didn't vote for " . $candidate->getName(); die();
                 }
 
@@ -72,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $vote = $_POST['p-' . $post->getId()];
                 if (!isset($vote)) {
+                    http_response_code(400);
                     echo "Didn't vote for " . $post->getName(); die();
                 }
 
@@ -91,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo $twig->render('vote-message.html', [
         'message' => 'Your vote has been recorded!',
         'redir' => 'safe/vote',
+        'progressClass' => 'is-success',
     ]);
     die();
 }
@@ -119,6 +127,7 @@ foreach ($voters as $v) {
 
 // Nothing to vote
 if ($election === null) {
+    http_response_code(404);
     echo $twig->render('vote-message.html', [
         'message' => 'No elections for you to vote for right now!',
         'error' => $hasBadIP ? 'Some active elections require you to vote at polling booths' : '',

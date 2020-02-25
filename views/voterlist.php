@@ -3,7 +3,10 @@ require_once "bootstrap.php";
 include "check-admin.php";
 
 $voterList = $entityManager->find('ElectionVoterList', $vlId);
-if ($voterList === null) { echo "No such voter list"; die(); }
+if ($voterList === null) {
+    http_response_code(404);
+    echo "No such voter list"; die();
+}
 if (!$USER_SUPERADMIN && $voterList->getElection()->getCreator() !== $USER_ROLL) dieNoElection();
 
 $query = $entityManager->createQuery("SELECT u FROM ElectionVoter u WHERE IDENTITY(u.voterList) = '$vlId'");

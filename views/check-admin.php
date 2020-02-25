@@ -1,6 +1,6 @@
 <?php
 if (!$USER_ADMIN) {
-    header('HTTP/1.0 403 Forbidden');
+    http_response_code(403);
     echo $twig->render('vote-message.html', [
         'message' => 'You need admin privileges to access this page!',
         'redir' => $LOGOUT_HOME,
@@ -9,7 +9,7 @@ if (!$USER_ADMIN) {
 }
 
 function dieNoElection() {
-    header('HTTP/1.0 404 Not Found');
+    http_response_code(404);
     echo "No such election!";
     die();
 }

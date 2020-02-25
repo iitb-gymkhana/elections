@@ -14,7 +14,7 @@
     <h3 class="subtitle is-6"> This page will close automatically </h3>
 
     <div class="progress">
-        <progress class="progress is-danger" value="15" max="100" id="progress"></progress>
+        <progress class="progress {{ progressClass | default('is-danger') }}" value="15" max="100" id="progress"></progress>
     </div>
 
     <script>
