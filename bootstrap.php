@@ -42,7 +42,7 @@ $SUPERADMIN_LIST = array_map('strtoupper', $SUPERADMIN_LIST);
 $ADMIN_LIST = array_map('strtoupper', $ADMIN_LIST);
 
 // User roll number
-$USER_ROLL = isset($_SERVER['OIDC_CLAIM_employeeNumber']) ? strtoupper($_SERVER['OIDC_CLAIM_employeeNumber']) : null;
+$USER_ROLL = isset($_SERVER['REDIRECT_OIDC_CLAIM_employeeNumber']) ? strtoupper($_SERVER['REDIRECT_OIDC_CLAIM_employeeNumber']) : null;
 $USER_SUPERADMIN = in_array($USER_ROLL, $SUPERADMIN_LIST);
 $USER_ADMIN = $USER_SUPERADMIN || in_array($USER_ROLL, $ADMIN_LIST);
 

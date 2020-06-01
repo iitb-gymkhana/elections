@@ -175,7 +175,7 @@ class ElectionPost
      */
     public function canVote() {
         $type = strtoupper($this->type);
-        $claim = strtoupper($_SERVER['OIDC_CLAIM_employeeType']);
+        $claim = strtoupper($_SERVER['REDIRECT_OIDC_CLAIM_employeeType']);
 
         if ($type === 'ALL') return true;
         if ($type === 'UG') return $claim === 'UG' || $claim === 'DD';

@@ -140,7 +140,7 @@ if ($election === null) {
 if ($voter->getVoterList()->getRequireCode() && $votingKey !== $voter->getCode()) {
     echo $twig->render('vote-key.html', [
         'election' => $election,
-        'name' => $_SERVER['OIDC_CLAIM_name'],
+        'name' => $_SERVER['REDIRECT_OIDC_CLAIM_name'],
     ]);
     die();
 }
