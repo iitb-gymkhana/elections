@@ -7,7 +7,7 @@
 </div>
 
 <div class="field">
-    <label class="label">Number</label>
+    <label class="label">Number of people to be elected</label>
     <div class="control">
         <input class="input" name="number" type="number" placeholder="Number of candidates to elect" value="{{ post.getNumber() | default('1') }}" min="1"
             required {% if not canEdit %} disabled {% endif %}>
