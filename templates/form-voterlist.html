@@ -36,9 +36,12 @@
 
 {% if not voterList %}
 <div class="field">
-    <label class="label">Roll Number List</label>
+    <label class="label">Roll Number list (one roll number on each line)</label>
     <div class="control">
-        <textarea class="textarea" placeholder="160010005 ..." name="voters" required></textarea>
+        <textarea class="textarea"
+placeholder="160010005
+160010042
+..." name="voters" required></textarea>
     </div>
 </div>
 {% endif %}
