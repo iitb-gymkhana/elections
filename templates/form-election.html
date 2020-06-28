@@ -53,6 +53,8 @@
 
 {% if election.getEnded() or superAdmin %}
 <a href="safe/result/{{ election.getId() }}" class="button is-primary is-outlined is-fullwidth is-primary"> Results </a>
+{% else %}
+<a href="safe/turnout/{{ election.getId() }}" class="button is-primary is-outlined is-fullwidth is-primary"> Turnout </a>
 {% endif %}
 
 <a href="safe/preview/{{ election.getId() }}" class="button is-link is-outlined is-fullwidth is-primary"> Preview </a>
