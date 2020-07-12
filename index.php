@@ -12,6 +12,7 @@ $router->all('/safe/admin/(\w+)', function($electionId) { require __DIR__ . '/vi
 $router->all('/safe/vote', function() { require __DIR__ . '/views/vote.php'; });
 $router->all('/safe/preview/(\w+)', function($electionId) { require __DIR__ . '/views/preview.php'; });
 $router->get('/safe/result/(\w+)', function($electionId) { require __DIR__ . '/views/result.php'; });
+$router->get('/safe/turnout/(\w+)', function($electionId) { require __DIR__ . '/views/turnout.php'; });
 
 $router->get('/safe/voterlist/(\w+)', function($vlId) { require __DIR__ . '/views/voterlist.php'; });
 
