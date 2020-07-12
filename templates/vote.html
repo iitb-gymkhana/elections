@@ -5,14 +5,25 @@
 {% block content %}
 
 <section class="section">
-    <form class="container" method="POST">
+    <form class="container" method="POST" onsubmit="return formSubmit();">
         <div class="has-text-centered">
             <h2 class="title is-4">{{ election.getName() }}</h2>
 
             {% for post in election.getPosts() %}
             {% if preview or post.canVote() %}
-            <div class="box is-shadowless">
+            <div class="box is-shadowless vote-post" data-number="{{ post.getNumber() }}">
                 <h2 class="subtitle is-5">{{ post.getName() }}</h2>
+
+                {% if post.isYNN() and (post.getCandidates() | length) > post.getNumber() %}
+                    <div class="yes-count">
+                        <span class="info">
+                            You can cast a maximum of {{ post.getNumber() }} YES votes
+                        </span><br/>
+                        Choose NEUTRAL for the candidates you do not wish to vote for
+                        <br/> <br/>
+                    </div>
+                {% endif %}
+
                 <div class="columns is-centered">
                     {% for candidate in post.getCandidates() %}
                     <div class="column is-narrow has-text-centered">
@@ -105,6 +116,35 @@
         }, 1000);
     }
     setupTimeCount();
+
+    function validateAll() {
+        let error = false;
+        for (const vp of document.querySelectorAll('.vote-post')) {
+            const selYes = vp.querySelectorAll('[value=yes]:checked').length;
+            const maxYes = vp.getAttribute('data-number');
+            if (selYes > maxYes) {
+                vp.classList.add('yc-error');
+                error = true;
+            } else {
+                vp.classList.remove('yc-error');
+            }
+        }
+        return !error;
+    }
+
+    function formSubmit() {
+        if (!validateAll()) {
+            alert('There are some errors in your voting form. Check all posts again.')
+            return false;
+        }
+        return true;
+    }
+
+    (function(){
+        document.querySelectorAll('input[type=radio]').forEach((r) => {
+            r.addEventListener('click', validateAll);
+        });
+    })();
 </script>
 
 {% endblock %}

@@ -66,6 +66,17 @@ img.candidate {
     color: white;
 }
 
+.yes-count .info {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.vote-post.yc-error {
+    color: red;
+}
+.vote-post.yc-error .yes-count::before {
+    content: "ERROR:";
+}
+
 @media print {
     .no-print, .no-print * {
         display: none !important;
