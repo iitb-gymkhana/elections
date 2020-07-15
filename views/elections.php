@@ -47,4 +47,5 @@ echo $twig->render('elections.html', [
     'elections' => $elections,
     'next' => ($page >= $pageCount - 1) ? null : $page + 1,
     'prev' => ($page <= 0) ? null : $page - 1,
+    'superadmin' => $USER_SUPERADMIN,
 ]);

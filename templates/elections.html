@@ -12,7 +12,7 @@
             <div class="column is-half">
                 <div class="box ">
                     <div class="field has-text-centered">
-                        <h2 class="subtitle is-4"> Commissioned by you </h2>
+                        <h2 class="subtitle is-4"> Commissioned by {{ userRoll }} </h2>
                     </div>
                     <nav class="panel is-info is-shadowless">
                         {% for election in elections %}
@@ -25,6 +25,10 @@
                             <span class="panel-icon"> &#10004; </span>
                             {% else %}
                             <span class="panel-icon"> &#10033; </span>
+                            {% endif %}
+
+                            {% if superadmin %}
+                            [{{ election.getCreator() }}]
                             {% endif %}
 
                             {{ election.getName() }}
